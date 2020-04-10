@@ -54,10 +54,10 @@ public class UserDao {
     }
 
     /**
-     * This method persists the given user in the database
+     * This method persists the given userAuthTokenEntity details in the database
      *
-     * @param userAuthTokenEntity The User details to be persisted
-     * @return userAuthTokenEntity The updated user details
+     * @param userAuthTokenEntity The UserAuthToken details to be persisted
+     * @return userAuthTokenEntity The updated UserAuthToken details
      */
 
     public UserAuthTokenEntity createAuthToken(final UserAuthTokenEntity userAuthTokenEntity) {
@@ -66,7 +66,7 @@ public class UserDao {
     }
 
     /**
-     * This method persists the given user in the database
+     * This method updates the given user in the database
      *
      * @param updatedUserEntity The User details to be persisted
      */
@@ -75,12 +75,12 @@ public class UserDao {
     }
 
     /**
-     * This method persists the given user in the database
+     * This method returns the UserAuthTokenEntity the given accessToken from the database
      *
-     * @param authToken The User details to be persisted
-     * @return userEntity The updated user details
+     * @param authToken The UserAuthToken details to be fetched
+     * @return UserAuthTokenEntity The updated UserAuthToken details
      */
-    public UserAuthTokenEntity getUserByAuthToken(String authToken) {
+    public UserAuthTokenEntity getUserAuthToken(String authToken) {
         try{
             return entityManager.createNamedQuery("userAuthTokenByAccessToken", UserAuthTokenEntity.class).setParameter("accessToken", authToken).getSingleResult();
         } catch (NoResultException e){
@@ -89,26 +89,12 @@ public class UserDao {
     }
 
     /**
-     * This method persists the given user in the database
+     * This method updates the given UserAuthTokenEntity in the database
      *
-     * @param userAuthTokenEntity The User details to be persisted
+     * @param userAuthTokenEntity The UserAuthToken details to be persisted
      */
     public void updateUserAuthToken(UserAuthTokenEntity userAuthTokenEntity) {
         entityManager.merge(userAuthTokenEntity);
-    }
-
-    /**
-     * This method persists the given user in the database
-     *
-     * @param authToken The User details to be persisted
-     * @return userEntity The updated user details
-     */
-    public UserAuthTokenEntity getUuidByAuthToken(String authToken) {
-        try{
-            return entityManager.createNamedQuery("UuidByAccessToken", UserAuthTokenEntity.class).setParameter("accessToken", authToken).getSingleResult();
-        } catch (NoResultException e){
-            return null;
-        }
     }
 
 }

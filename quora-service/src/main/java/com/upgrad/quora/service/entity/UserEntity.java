@@ -9,6 +9,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
@@ -16,7 +17,7 @@ import javax.validation.constraints.Size;
         @NamedQuery(name = "userByUserName", query = "select u from UserEntity u where u.userName = :userName"),
         @NamedQuery(name = "userByEmail", query = "select u from UserEntity u where u.email = :email")
 })
-public class UserEntity {
+public class UserEntity implements Serializable {
 
     @Id
     @Column(name = "id")
