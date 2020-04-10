@@ -2,12 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="47a15d9d-c79e-46a9-bbbf-df38ac55657d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/business/SigninBusinessService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/business/SignoutBusinessService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/entity/UserAuthTokenEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/exception/RestExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/exception/RestExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quora-api/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/quora-api/src/main/resources/application.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quora-db/src/main/resources/config/localhost.properties" beforeDir="false" afterPath="$PROJECT_DIR$/quora-db/src/main/resources/config/localhost.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/dao/UserDao.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,6 +85,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.6643678" />
+    <property name="restartRequiresConfirmation" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -85,7 +93,20 @@
       <recent name="E:\Trello_quora\quora-api\src\main\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.QuoraApiApplication">
+  <component name="RunManager" selected="JUnit.UserControllerTest">
+    <configuration name="QuoraApiApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.upgrad.quora.api.QuoraApiApplication" />
+      <module name="quora-api" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.upgrad.quora.api.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="AnswerControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="quora-api" />
       <extension name="coverage">
@@ -147,30 +168,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="QuoraApiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="quora-api" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.upgrad.quora.api.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.upgrad.quora.api.QuoraApiApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="JUnit.AnswerControllerTest" />
       <item itemvalue="JUnit.QuestionControllerTest" />
       <item itemvalue="JUnit.UserControllerTest" />
-      <item itemvalue="Spring Boot.QuoraApiApplication" />
       <item itemvalue="JUnit.UserControllerTest.signupWithRepeatedUserName" />
+      <item itemvalue="Application.QuoraApiApplication" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.QuoraApiApplication" />
         <item itemvalue="JUnit.UserControllerTest" />
+        <item itemvalue="Application.QuoraApiApplication" />
         <item itemvalue="JUnit.UserControllerTest.signupWithRepeatedUserName" />
         <item itemvalue="JUnit.AnswerControllerTest" />
         <item itemvalue="JUnit.QuestionControllerTest" />
@@ -221,21 +229,25 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="488" y="57" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1586389992889" />
-    <state width="1323" height="212" key="GridCell.Tab.0.bottom" timestamp="1586398989382">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1238" height="133" key="GridCell.Tab.0.bottom" timestamp="1586505427306">
+      <screen x="0" y="0" width="1280" height="800" />
     </state>
+    <state width="1238" height="133" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1586505427306" />
     <state width="1323" height="212" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1586398989382" />
-    <state width="1323" height="212" key="GridCell.Tab.0.center" timestamp="1586398989381">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1238" height="133" key="GridCell.Tab.0.center" timestamp="1586505427304">
+      <screen x="0" y="0" width="1280" height="800" />
     </state>
+    <state width="1238" height="133" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1586505427304" />
     <state width="1323" height="212" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1586398989381" />
-    <state width="1323" height="212" key="GridCell.Tab.0.left" timestamp="1586398989381">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1238" height="133" key="GridCell.Tab.0.left" timestamp="1586505427303">
+      <screen x="0" y="0" width="1280" height="800" />
     </state>
+    <state width="1238" height="133" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1586505427303" />
     <state width="1323" height="212" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1586398989381" />
-    <state width="1323" height="212" key="GridCell.Tab.0.right" timestamp="1586398989381">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1238" height="133" key="GridCell.Tab.0.right" timestamp="1586505427305">
+      <screen x="0" y="0" width="1280" height="800" />
     </state>
+    <state width="1238" height="133" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1586505427305" />
     <state width="1323" height="212" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1586398989381" />
     <state width="1323" height="212" key="GridCell.Tab.1.bottom" timestamp="1586398801412">
       <screen x="0" y="0" width="1366" height="728" />
@@ -253,13 +265,18 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="212" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1586398801412" />
+    <state x="128" y="0" key="SettingsEditor" timestamp="1586504077619">
+      <screen x="0" y="0" width="1280" height="800" />
+    </state>
+    <state x="128" y="0" key="SettingsEditor/0.0.1280.800@0.0.1280.800" timestamp="1586504077619" />
     <state x="335" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1586396199322">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="335" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.728@0.0.1366.728" timestamp="1586396199322" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1586386484247">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="324" y="54" width="670" height="746" key="search.everywhere.popup" timestamp="1586504063282">
+      <screen x="0" y="0" width="1280" height="800" />
     </state>
+    <state x="324" y="54" width="670" height="746" key="search.everywhere.popup/0.0.1280.800@0.0.1280.800" timestamp="1586504063282" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1586386484247" />
   </component>
   <component name="XDebuggerManager">

@@ -1,5 +1,6 @@
 package com.upgrad.quora.service.dao;
 
+import com.upgrad.quora.service.entity.UserAuthTokenEntity;
 import com.upgrad.quora.service.entity.UserEntity;
 import org.springframework.stereotype.Repository;
 
@@ -50,6 +51,64 @@ public class UserDao {
     public UserEntity createUser(UserEntity userEntity) {
         entityManager.persist(userEntity);
         return userEntity;
+    }
+
+    /**
+     * This method persists the given user in the database
+     *
+     * @param userAuthTokenEntity The User details to be persisted
+     * @return userAuthTokenEntity The updated user details
+     */
+
+    public UserAuthTokenEntity createAuthToken(final UserAuthTokenEntity userAuthTokenEntity) {
+        entityManager.persist(userAuthTokenEntity);
+        return userAuthTokenEntity;
+    }
+
+    /**
+     * This method persists the given user in the database
+     *
+     * @param updatedUserEntity The User details to be persisted
+     */
+    public void updateUser(final UserEntity updatedUserEntity) {
+        entityManager.merge(updatedUserEntity);
+    }
+
+    /**
+     * This method persists the given user in the database
+     *
+     * @param authToken The User details to be persisted
+     * @return userEntity The updated user details
+     */
+    public UserAuthTokenEntity getUserByAuthToken(String authToken) {
+        try{
+            return entityManager.createNamedQuery("userAuthTokenByAccessToken", UserAuthTokenEntity.class).setParameter("accessToken", authToken).getSingleResult();
+        } catch (NoResultException e){
+            return null;
+        }
+    }
+
+    /**
+     * This method persists the given user in the database
+     *
+     * @param userAuthTokenEntity The User details to be persisted
+     */
+    public void updateUserAuthToken(UserAuthTokenEntity userAuthTokenEntity) {
+        entityManager.merge(userAuthTokenEntity);
+    }
+
+    /**
+     * This method persists the given user in the database
+     *
+     * @param authToken The User details to be persisted
+     * @return userEntity The updated user details
+     */
+    public UserAuthTokenEntity getUuidByAuthToken(String authToken) {
+        try{
+            return entityManager.createNamedQuery("UuidByAccessToken", UserAuthTokenEntity.class).setParameter("accessToken", authToken).getSingleResult();
+        } catch (NoResultException e){
+            return null;
+        }
     }
 
 }
