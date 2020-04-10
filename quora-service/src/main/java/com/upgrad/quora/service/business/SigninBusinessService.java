@@ -22,11 +22,12 @@ public class SigninBusinessService {
     private PasswordCryptographyProvider passwordCryptographyProvider;
 
     /**
-     * This method is used to sign up the given new user
+     * This method is used to successfully sign-in the given new user
      *
-     * @param username,password The user details to be signed up
+     * @param username,password The user details to be signed in
      * @return userAuthTokenEntity The persisted sign-in user details.
-     * @throws AuthenticationFailedException,UserNotFoundException This exception is thrown if the given username or email already exists
+     * @throws AuthenticationFailedException,UserNotFoundException exception is thrown if the given password doesn't match with the password of the user in database
+     * and when the user doesn't exist in the database respectively.
      */
 
     @Transactional(propagation = Propagation.REQUIRED)
@@ -37,6 +38,8 @@ public class SigninBusinessService {
         if (userEntity == null) {
             throw new UserNotFoundException("ATH-001", "This username does not exist");
         }
+
+        //Encrypting the password using the salt value, to compare it with the stored password
         final String encryptedPassword = passwordCryptographyProvider.encrypt(password, userEntity.getSalt());
         if (encryptedPassword.equals(userEntity.getPassword())) {
             JwtTokenProvider jwtTokenProvider = new JwtTokenProvider(encryptedPassword);
@@ -44,6 +47,8 @@ public class SigninBusinessService {
             userAuthToken.setUser(userEntity);
             final ZonedDateTime now = ZonedDateTime.now();
             final ZonedDateTime expiresAt = now.plusHours(8);
+
+            //Setting the access token and other details for the user upon successful authentication.
             userAuthToken.setAccessToken(jwtTokenProvider.generateToken(userEntity.getUuid(), now, expiresAt));
             userAuthToken.setLoginAt(now);
             userAuthToken.setExpiresAt(expiresAt);

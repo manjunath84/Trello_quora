@@ -17,9 +17,9 @@ public class SignoutBusinessService {
     private UserDao userDao;
 
     /**
-     * This method is used to sign up the given new user
+     * This method is used to sign out the given new user
      *
-     * @param authToken The user details to be signed up
+     * @param authToken The user details to be signed out
      * @return Uuid  The persisted sign-out  user details.
      * @throws SignOutRestrictedException This exception is thrown if the given username or email already exists
      */
@@ -28,7 +28,7 @@ public class SignoutBusinessService {
     public UserAuthTokenEntity signout(String authToken) throws SignOutRestrictedException {
 
         //Check and throw SignOutRestrictedException if the user doesn't exist in the database
-        UserAuthTokenEntity userAuthTokenEntity= userDao.getUserByAuthToken(authToken);
+        UserAuthTokenEntity userAuthTokenEntity= userDao.getUserAuthToken(authToken);
         if(userAuthTokenEntity==null) {
             throw new SignOutRestrictedException("SGR-001", "User is not Signed in");
         }
@@ -37,9 +37,7 @@ public class SignoutBusinessService {
         userAuthTokenEntity.setLogoutAt(now);
         userDao.updateUserAuthToken(userAuthTokenEntity);
 
-        return userDao.getUuidByAuthToken(authToken);
+        return userDao.getUserAuthToken(authToken);
     }
-
-
 
 }

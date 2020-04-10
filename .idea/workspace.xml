@@ -2,19 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="47a15d9d-c79e-46a9-bbbf-df38ac55657d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/business/SigninBusinessService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/business/SignoutBusinessService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/entity/UserAuthTokenEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/controller/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/exception/RestExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/exception/RestExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quora-api/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/quora-api/src/main/resources/application.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quora-db/src/main/resources/config/localhost.properties" beforeDir="false" afterPath="$PROJECT_DIR$/quora-db/src/main/resources/config/localhost.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/business/SigninBusinessService.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/business/SigninBusinessService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/business/SignoutBusinessService.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/business/SignoutBusinessService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/entity/UserAuthTokenEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/entity/UserAuthTokenEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/entity/UserEntity.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,8 +174,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.UserControllerTest" />
         <item itemvalue="Application.QuoraApiApplication" />
+        <item itemvalue="JUnit.UserControllerTest" />
         <item itemvalue="JUnit.UserControllerTest.signupWithRepeatedUserName" />
         <item itemvalue="JUnit.AnswerControllerTest" />
         <item itemvalue="JUnit.QuestionControllerTest" />
@@ -229,25 +226,25 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="488" y="57" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1586389992889" />
-    <state width="1238" height="133" key="GridCell.Tab.0.bottom" timestamp="1586505427306">
+    <state width="1238" height="133" key="GridCell.Tab.0.bottom" timestamp="1586521659087">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state width="1238" height="133" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1586505427306" />
+    <state width="1238" height="133" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1586521659087" />
     <state width="1323" height="212" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1586398989382" />
-    <state width="1238" height="133" key="GridCell.Tab.0.center" timestamp="1586505427304">
+    <state width="1238" height="133" key="GridCell.Tab.0.center" timestamp="1586521659085">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state width="1238" height="133" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1586505427304" />
+    <state width="1238" height="133" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1586521659085" />
     <state width="1323" height="212" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1586398989381" />
-    <state width="1238" height="133" key="GridCell.Tab.0.left" timestamp="1586505427303">
+    <state width="1238" height="133" key="GridCell.Tab.0.left" timestamp="1586521659084">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state width="1238" height="133" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1586505427303" />
+    <state width="1238" height="133" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1586521659084" />
     <state width="1323" height="212" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1586398989381" />
-    <state width="1238" height="133" key="GridCell.Tab.0.right" timestamp="1586505427305">
+    <state width="1238" height="133" key="GridCell.Tab.0.right" timestamp="1586521659086">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state width="1238" height="133" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1586505427305" />
+    <state width="1238" height="133" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1586521659086" />
     <state width="1323" height="212" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1586398989381" />
     <state width="1323" height="212" key="GridCell.Tab.1.bottom" timestamp="1586398801412">
       <screen x="0" y="0" width="1366" height="728" />

@@ -82,7 +82,8 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST, path = "user/signin", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<SigninResponse> signin(@RequestHeader("authorization") final String authorization) throws AuthenticationFailedException, UserNotFoundException {
 
-        byte[] decode = Base64.getDecoder().decode(authorization);
+        //Decoding the authorization header to split username and password
+        byte[] decode = Base64.getDecoder().decode(authorization.split("Basic ")[1]);
         String decodedText = new String(decode);
         String[] decodedArray = decodedText.split(":");
 
