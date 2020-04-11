@@ -97,4 +97,33 @@ public class UserDao {
         entityManager.merge(userAuthTokenEntity);
     }
 
+    /**
+     * This method fetches UserEntity by the given User Unique Identification.
+     *
+     * @param userUuid The uuid of the user
+     * @return UserEntity The UserEntity of the given email address.
+     */
+    public UserEntity getUserByUuid(final String userUuid) {
+        try {
+            return entityManager.createNamedQuery("userByUuid", UserEntity.class).setParameter("userUuid", userUuid).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    /**
+     * This method deletes UserEntity by the given User Unique Identification.
+     *
+     * @param userUuid The uuid of the user
+     * @return Integer The Uuid of the given user.
+     */
+    public Integer deleteUserByUuid(final String userUuid) {
+        try {
+            //Using createNamedQuery throws exception due to which it is recommended to use this way
+            return entityManager.createQuery("delete from UserEntity u where u.uuid = :userUuid").setParameter("userUuid", userUuid).executeUpdate();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
 }
