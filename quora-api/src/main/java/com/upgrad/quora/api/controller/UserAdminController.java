@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/")
@@ -21,9 +18,9 @@ public class UserAdminController {
     private UserAdminBusinessService userAdminBusinessService;
 
     @RequestMapping(value = "/admin/user/{userId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<UserDeleteResponse> deleteUser(@PathVariable("userId") final String userUuid, final String authorization) throws AuthorizationFailedException, UserNotFoundException {
+    public ResponseEntity<UserDeleteResponse> deleteUser(@PathVariable("userId") final String userUuid, @RequestHeader("authorization") final String authorization) throws AuthorizationFailedException, UserNotFoundException {
         Integer deleteCount = userAdminBusinessService.deleteUser(userUuid, authorization);
-        UserDeleteResponse userDeleteResponse = new UserDeleteResponse().id(deleteCount.toString()).status("USER SUCCESSFULLY DELETED");
-        return new ResponseEntity<>(userDeleteResponse, HttpStatus.NO_CONTENT);
+        UserDeleteResponse userDeleteResponse = new UserDeleteResponse().id(userUuid).status("USER SUCCESSFULLY DELETED");
+        return new ResponseEntity<>(userDeleteResponse, HttpStatus.OK);
     }
 }
