@@ -76,4 +76,18 @@ public class RestExceptionHandler {
         return new ResponseEntity<ErrorResponse>(
                 new ErrorResponse().code(exc.getCode()).message(exc.getErrorMessage()), HttpStatus.FORBIDDEN);
     }
+
+    /**
+     * This method handles all the InvalidQuestionException throw by the Rest Controller
+     *
+     * @param exc     InvalidQuestionException
+     * @param request Webrequest
+     * @return ResponseEntity
+     */
+    @ExceptionHandler(InvalidQuestionException.class)
+    public ResponseEntity<ErrorResponse> invalidQuestionException(InvalidQuestionException exc, WebRequest request) {
+        return new ResponseEntity<ErrorResponse>(
+                new ErrorResponse().code(exc.getCode()).message(exc.getErrorMessage()), HttpStatus.NOT_FOUND);
+    }
+
 }
