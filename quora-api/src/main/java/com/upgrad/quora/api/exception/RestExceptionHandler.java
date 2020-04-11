@@ -14,7 +14,7 @@ public class RestExceptionHandler {
     /**
      * This method handles all the SingUpRestrictedException throw by the Rest Controller
      *
-     * @param exc SingUpRestrictedException
+     * @param exc     SingUpRestrictedException
      * @param request Webrequest
      * @return ResponseEntity
      */
@@ -28,7 +28,7 @@ public class RestExceptionHandler {
     /**
      * This method handles all the UserNotFoundException throw by the Rest Controller
      *
-     * @param exc UserNotFoundException
+     * @param exc     UserNotFoundException
      * @param request Webrequest
      * @return ResponseEntity
      */
@@ -41,7 +41,7 @@ public class RestExceptionHandler {
     /**
      * This method handles all the SignOutRestrictedException throw by the Rest Controller
      *
-     * @param exc SignOutRestrictedException
+     * @param exc     SignOutRestrictedException
      * @param request Webrequest
      * @return ResponseEntity
      */
@@ -54,7 +54,7 @@ public class RestExceptionHandler {
     /**
      * This method handles all the AuthenticationFailedException throw by the Rest Controller
      *
-     * @param exc AuthenticationFailedException
+     * @param exc     AuthenticationFailedException
      * @param request Webrequest
      * @return ResponseEntity
      */
@@ -67,7 +67,7 @@ public class RestExceptionHandler {
     /**
      * This method handles all the AuthorizationFailedException throw by the Rest Controller
      *
-     * @param exc AuthorizationFailedException
+     * @param exc     AuthorizationFailedException
      * @param request Webrequest
      * @return ResponseEntity
      */
@@ -75,6 +75,19 @@ public class RestExceptionHandler {
     public ResponseEntity<ErrorResponse> authorizationFailedException(AuthorizationFailedException exc, WebRequest request) {
         return new ResponseEntity<ErrorResponse>(
                 new ErrorResponse().code(exc.getCode()).message(exc.getErrorMessage()), HttpStatus.FORBIDDEN);
+    }
+
+    /**
+     * This method handles all the InvalidQuestionException throw by the Rest Controller
+     *
+     * @param exc     InvalidQuestionException
+     * @param request Webrequest
+     * @return ResponseEntity
+     */
+    @ExceptionHandler(InvalidQuestionException.class)
+    public ResponseEntity<ErrorResponse> invalidQuestionException(InvalidQuestionException exc, WebRequest request) {
+        return new ResponseEntity<ErrorResponse>(
+                new ErrorResponse().code(exc.getCode()).message(exc.getErrorMessage()), HttpStatus.NOT_FOUND);
     }
 
 }
