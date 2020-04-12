@@ -45,7 +45,7 @@ public class QuestionBusinessService {
                 (userAuthTokenEntity.getLogoutAt() != null && userAuthTokenEntity.getLogoutAt().isBefore(now))) {
             throw new AuthorizationFailedException("ATHR-002", "User is signed out.Sign in first to post a question");
         }
-        questionEntity.setUserId(userAuthTokenEntity.getUser());
+        questionEntity.setUser(userAuthTokenEntity.getUser());
         return questionDao.createQuestion(questionEntity);
     }
 
@@ -75,7 +75,7 @@ public class QuestionBusinessService {
             throw new InvalidQuestionException("QUES-001", "Entered question uuid does not exist");
         }
 
-        UserEntity questionOwner = question.getUserId();
+        UserEntity questionOwner = question.getUser();
 
         if (questionOwner.getUuid().equals(user.getUuid()) || user.getRole().equals("admin")) {
             return questionDao.deleteQuestionByUuid(questionUuid);
