@@ -1,9 +1,15 @@
 package com.upgrad.quora.service.entity;
 
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.time.ZonedDateTime;
 
 @Entity
@@ -11,7 +17,8 @@ import java.time.ZonedDateTime;
 @NamedQueries({
         @NamedQuery(name = "getQuestionById", query = "select q from QuestionEntity q where q.uuid = :questionUuid")
 })
-public class QuestionEntity {
+public class QuestionEntity implements Serializable {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,9 +38,10 @@ public class QuestionEntity {
     @NotNull
     private ZonedDateTime createdDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @NotNull
     @JoinColumn(name = "user_id")
-    private UserEntity userId;
+    private UserEntity User;
 
     public long getId() {
         return id;
@@ -67,11 +75,27 @@ public class QuestionEntity {
         this.createdDate = createdDate;
     }
 
-    public UserEntity getUserId() {
-        return userId;
+    public UserEntity getUser() {
+        return User;
     }
 
-    public void setUserId(UserEntity userId) {
-        this.userId = userId;
+    public void setUser(UserEntity user) {
+        User = user;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return new EqualsBuilder().append(this, obj).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(this).hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+
 }
