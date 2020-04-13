@@ -1,6 +1,7 @@
 package com.upgrad.quora.service.business;
 
 import com.upgrad.quora.service.dao.UserDao;
+import com.upgrad.quora.service.entity.UserAuthDao;
 import com.upgrad.quora.service.entity.UserAuthTokenEntity;
 import com.upgrad.quora.service.entity.UserEntity;
 import com.upgrad.quora.service.exception.AuthenticationFailedException;
@@ -17,6 +18,9 @@ public class SigninBusinessService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private UserAuthDao userAuthDao;
 
     @Autowired
     private PasswordCryptographyProvider passwordCryptographyProvider;
@@ -53,7 +57,7 @@ public class SigninBusinessService {
             userAuthToken.setLoginAt(now);
             userAuthToken.setExpiresAt(expiresAt);
 
-            userDao.createAuthToken(userAuthToken);
+            userAuthDao.createAuthToken(userAuthToken);
             userDao.updateUser(userEntity);
 
 
