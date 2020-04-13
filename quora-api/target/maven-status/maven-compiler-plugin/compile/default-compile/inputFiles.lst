@@ -1,11 +1,18 @@
 C:\Users\Manjunathan\Desktop\Blockchain_PGDiploma\BakendAPI\quora_stub\Trello_quora\quora-api\target\generated-sources\.\io\swagger\Swagger2SpringBoot.java
+<<<<<<< HEAD
+=======
+C:\Users\Manjunathan\Desktop\Blockchain_PGDiploma\BakendAPI\quora_stub\Trello_quora\quora-api\src\main\java\com\upgrad\quora\api\controller\QuestionController.java
+>>>>>>> Created UserAuthDao to separately operate UserAuthTokenEntity functionalities
 C:\Users\Manjunathan\Desktop\Blockchain_PGDiploma\BakendAPI\quora_stub\Trello_quora\quora-api\target\generated-sources\.\com\upgrad\quora\api\model\QuestionEditRequest.java
 C:\Users\Manjunathan\Desktop\Blockchain_PGDiploma\BakendAPI\quora_stub\Trello_quora\quora-api\target\generated-sources\.\com\upgrad\quora\api\model\QuestionResponse.java
 C:\Users\Manjunathan\Desktop\Blockchain_PGDiploma\BakendAPI\quora_stub\Trello_quora\quora-api\target\generated-sources\.\com\upgrad\quora\api\model\QuestionDetailsResponse.java
 C:\Users\Manjunathan\Desktop\Blockchain_PGDiploma\BakendAPI\quora_stub\Trello_quora\quora-api\src\main\java\com\upgrad\quora\api\config\SwaggerConfiguration.java
 C:\Users\Manjunathan\Desktop\Blockchain_PGDiploma\BakendAPI\quora_stub\Trello_quora\quora-api\src\main\java\com\upgrad\quora\api\QuoraApiApplication.java
 C:\Users\Manjunathan\Desktop\Blockchain_PGDiploma\BakendAPI\quora_stub\Trello_quora\quora-api\target\generated-sources\.\com\upgrad\quora\api\model\UserDetailsResponse.java
+<<<<<<< HEAD
 C:\Users\Manjunathan\Desktop\Blockchain_PGDiploma\BakendAPI\quora_stub\Trello_quora\quora-api\src\main\java\com\upgrad\quora\api\controller\CommonController.java
+=======
+>>>>>>> Created UserAuthDao to separately operate UserAuthTokenEntity functionalities
 C:\Users\Manjunathan\Desktop\Blockchain_PGDiploma\BakendAPI\quora_stub\Trello_quora\quora-api\target\generated-sources\.\com\upgrad\quora\api\model\ErrorResponse.java
 C:\Users\Manjunathan\Desktop\Blockchain_PGDiploma\BakendAPI\quora_stub\Trello_quora\quora-api\target\generated-sources\.\io\swagger\api\ApiResponseMessage.java
 C:\Users\Manjunathan\Desktop\Blockchain_PGDiploma\BakendAPI\quora_stub\Trello_quora\quora-api\target\generated-sources\.\com\upgrad\quora\api\model\AnswerDeleteResponse.java
