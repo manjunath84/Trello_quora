@@ -2,19 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="47a15d9d-c79e-46a9-bbbf-df38ac55657d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/controller/AnswerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/controller/AnswerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/exception/RestExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/exception/RestExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quora-api/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/quora-api/src/main/resources/application.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quora-db/src/main/resources/config/localhost.properties" beforeDir="false" afterPath="$PROJECT_DIR$/quora-db/src/main/resources/config/localhost.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/business/AnswerBusinessService.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/business/AnswerBusinessService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/dao/AnswerDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/dao/AnswerDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/dao/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/entity/AnswerEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/entity/AnswerEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/entity/UserAuthTokenEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/entity/UserAuthTokenEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/entity/UserEntity.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,6 +77,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.6643678" />
     <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -273,10 +265,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="212" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1586398801412" />
-    <state x="128" y="0" key="SettingsEditor" timestamp="1586504077619">
+    <state x="128" y="0" key="SettingsEditor" timestamp="1586928382429">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state x="128" y="0" key="SettingsEditor/0.0.1280.800@0.0.1280.800" timestamp="1586504077619" />
+    <state x="128" y="0" key="SettingsEditor/0.0.1280.800@0.0.1280.800" timestamp="1586928382429" />
     <state x="335" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1586396199322">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

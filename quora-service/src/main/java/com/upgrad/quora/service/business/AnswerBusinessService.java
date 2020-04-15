@@ -93,4 +93,38 @@ public class AnswerBusinessService {
         }
         throw new AuthorizationFailedException("ATHR-003", "Only the question owner or admin can delete the question");
     }
+
+    /**
+     * This method deletes the answer entity in the system.
+     *
+     * @param answerUuid  The answerUuid entered by the user
+     * @param authorization The JWT access token of the user
+     * @return Count The count of answer entity deleted.
+     * @throws AuthorizationFailedException This exception is thrown, if the user is not signed in or it has signed out
+     * @throws AnswerNotFoundException This exception is thrown if the answer is not found in database for the entered answerUuid
+     */
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Integer deleteAnswer(final String answerUuid, final String authorization) throws AuthorizationFailedException, AnswerNotFoundException {
+        UserAuthTokenEntity userAuthTokenEntity = userAuthDao.getUserAuthByToken(authorization);
+        if (userAuthTokenEntity == null) {
+            throw new AuthorizationFailedException("ATHR-001", "User has not signed in");
+        }
+
+        if (userAuthTokenEntity.getLogoutAt() != null) {
+            throw new AuthorizationFailedException("ATHR-002", "User is signed out.Sign in first to post a question");
+        }
+
+        UserEntity user = userAuthTokenEntity.getUser();
+        AnswerEntity answerEntity = answerDao.getAnswerById(answerUuid);
+        if (answerEntity == null) {
+            throw new AnswerNotFoundException("ANS-001", "Entered answer uuid does not exist");
+        }
+
+        UserEntity answerOwner = answerEntity.getUser();
+
+        if (answerOwner.getUuid().equals(user.getUuid()) || user.getRole().equals("admin")) {
+            return answerDao.deleteAnswerByUuid(answerUuid);
+        }
+        throw new AuthorizationFailedException("ATHR-003", "Only the question owner or admin can delete the question");
+    }
 }
