@@ -2,10 +2,79 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="47a15d9d-c79e-46a9-bbbf-df38ac55657d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/controller/AnswerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/.swagger-codegen-ignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/.swagger-codegen/VERSION" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/application.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/QuoraApiApplication.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/config/SwaggerConfiguration.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/controller/QuestionController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/controller/UserAdminController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/controller/UserController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/exception/RestExceptionHandler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/model/AnswerDeleteResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/model/AnswerDetailsResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/model/AnswerEditRequest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/model/AnswerEditResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/model/AnswerRequest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/model/AnswerResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/model/ErrorResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/model/QuestionDeleteResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/model/QuestionDetailsResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/model/QuestionEditRequest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/model/QuestionEditResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/model/QuestionRequest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/model/QuestionResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/model/SigninResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/model/SignoutResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/model/SignupUserRequest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/model/SignupUserResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/model/UserDeleteResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/model/UserDetailsResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/endpoints/admin.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/endpoints/answer.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/endpoints/common.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/endpoints/question.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/endpoints/user.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/io/swagger/RFC3339DateFormat.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/io/swagger/Swagger2SpringBoot$ExitException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/io/swagger/Swagger2SpringBoot.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/io/swagger/api/ApiException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/io/swagger/api/ApiOriginFilter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/io/swagger/api/ApiResponseMessage.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/io/swagger/api/NotFoundException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/io/swagger/configuration/HomeController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/io/swagger/configuration/SwaggerDocumentationConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/classes/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/surefire-reports/TEST-com.upgrad.quora.api.controller.AdminControllerTest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/surefire-reports/TEST-com.upgrad.quora.api.controller.QuestionControllerTest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/surefire-reports/TEST-com.upgrad.quora.api.controller.UserControllerTest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/surefire-reports/com.upgrad.quora.api.controller.AdminControllerTest.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/surefire-reports/com.upgrad.quora.api.controller.QuestionControllerTest.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/surefire-reports/com.upgrad.quora.api.controller.UserControllerTest.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/test-classes/com/upgrad/quora/api/controller/AdminControllerTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/test-classes/com/upgrad/quora/api/controller/QuestionControllerTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-api/target/test-classes/com/upgrad/quora/api/controller/UserControllerTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-db/target/classes/config/localhost.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-db/target/classes/sql/quora.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-db/target/classes/sql/quora_test.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-db/target/maven-archiver/pom.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-db/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-db/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-db/target/quora-db.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/business/AnswerBusinessService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/dao/AnswerDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/entity/UserAuthDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/controller/AnswerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/controller/AnswerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/exception/RestExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/exception/RestExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quora-api/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/quora-api/src/main/resources/application.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quora-db/src/main/resources/config/localhost.properties" beforeDir="false" afterPath="$PROJECT_DIR$/quora-db/src/main/resources/config/localhost.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/business/AnswerBusinessService.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/business/AnswerBusinessService.java" afterDir="false" />
@@ -68,6 +137,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.6643678" />
     <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -255,10 +325,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="212" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1586398801412" />
-    <state x="128" y="0" key="SettingsEditor" timestamp="1586504077619">
+    <state x="128" y="0" key="SettingsEditor" timestamp="1586928382429">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state x="128" y="0" key="SettingsEditor/0.0.1280.800@0.0.1280.800" timestamp="1586504077619" />
+    <state x="128" y="0" key="SettingsEditor/0.0.1280.800@0.0.1280.800" timestamp="1586928382429" />
     <state x="335" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1586396199322">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

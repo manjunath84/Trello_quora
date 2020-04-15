@@ -1,10 +1,7 @@
 package com.upgrad.quora.api.controller;
 
 
-import com.upgrad.quora.api.model.AnswerEditRequest;
-import com.upgrad.quora.api.model.AnswerEditResponse;
-import com.upgrad.quora.api.model.AnswerRequest;
-import com.upgrad.quora.api.model.AnswerResponse;
+import com.upgrad.quora.api.model.*;
 import com.upgrad.quora.service.business.AnswerBusinessService;
 import com.upgrad.quora.service.entity.AnswerEntity;
 import com.upgrad.quora.service.exception.AnswerNotFoundException;
@@ -66,5 +63,21 @@ public class AnswerController {
         AnswerEntity editedAnswer = answerBusinessService.editAnswer(editedContent, accessToken, answerId);
         final AnswerEditResponse answerResponse = new AnswerEditResponse().id(editedAnswer.getUuid()).status("ANSWER EDITED");
         return new ResponseEntity<>(answerResponse, HttpStatus.CREATED);
+    }
+
+    /**
+     * This method deletes answer in system.
+     *
+     * @param answerUuid  The answerUuid of the answer to be deleted
+     * @param accessToken The JWT access token of the user passed in the request header.
+     * @return ResponseEntity
+     * @throws AuthorizationFailedException This exception is thrown, if the user is not signed in or it has signed out
+     * @throws AnswerNotFoundException This exception is thrown if the answer is not found in database for the entered answerUuid
+     */
+    @RequestMapping(method = RequestMethod.DELETE, path = "/answer/delete/{answerId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<AnswerDeleteResponse> deleteAnswer(@PathVariable("answerId") final String answerUuid, @RequestHeader("authorization") final String accessToken) throws AuthorizationFailedException, AnswerNotFoundException {
+        Integer deletedQuestions = answerBusinessService.deleteAnswer(answerUuid, accessToken);
+        final AnswerDeleteResponse answerDeleteResponse = new AnswerDeleteResponse().id(answerUuid).status("ANSWER DELETED");
+        return new ResponseEntity<>(answerDeleteResponse, HttpStatus.OK);
     }
 }
