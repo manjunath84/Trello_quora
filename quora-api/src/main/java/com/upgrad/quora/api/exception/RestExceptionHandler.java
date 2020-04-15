@@ -90,4 +90,17 @@ public class RestExceptionHandler {
                 new ErrorResponse().code(exc.getCode()).message(exc.getErrorMessage()), HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * This method handles all the InvalidQuestionException throw by the Rest Controller
+     *
+     * @param exc     AnswerNotFoundException
+     * @param request Webrequest
+     * @return ResponseEntity
+     */
+    @ExceptionHandler(AnswerNotFoundException.class)
+    public ResponseEntity<ErrorResponse> answerNotFoundException(AnswerNotFoundException exc, WebRequest request) {
+        return new ResponseEntity<ErrorResponse>(
+                new ErrorResponse().code(exc.getCode()).message(exc.getErrorMessage()), HttpStatus.NOT_FOUND);
+    }
+
 }
