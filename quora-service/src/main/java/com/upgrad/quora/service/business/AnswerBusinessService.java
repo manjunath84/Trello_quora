@@ -2,10 +2,7 @@ package com.upgrad.quora.service.business;
 
 import com.upgrad.quora.service.dao.AnswerDao;
 import com.upgrad.quora.service.dao.QuestionDao;
-import com.upgrad.quora.service.entity.AnswerEntity;
-import com.upgrad.quora.service.entity.UserAuthDao;
-import com.upgrad.quora.service.entity.UserAuthTokenEntity;
-import com.upgrad.quora.service.entity.UserEntity;
+import com.upgrad.quora.service.entity.*;
 import com.upgrad.quora.service.exception.AnswerNotFoundException;
 import com.upgrad.quora.service.exception.AuthorizationFailedException;
 import com.upgrad.quora.service.exception.InvalidQuestionException;
@@ -15,6 +12,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 
 @Service
 public class AnswerBusinessService {
@@ -126,5 +124,32 @@ public class AnswerBusinessService {
             return answerDao.deleteAnswerByUuid(answerUuid);
         }
         throw new AuthorizationFailedException("ATHR-003", "Only the question owner or admin can delete the question");
+    }
+
+    /**
+     * This method fetches all the answer entity for a given question in the system.
+     *
+     * @param questionId  The questionUuid entered by the user
+     * @param accessToken The JWT access token of the user
+     * @return AnswerEntity The list of AnswerEntity for a given question from the database.
+     * @throws AuthorizationFailedException This exception is thrown, if the user is not signed in or it has signed out
+     * @throws InvalidQuestionException This exception is thrown if the question is not found in database for the entered answerUuid
+     */
+    public List<AnswerEntity> getAllAnswersToQuestion(String questionId, String accessToken) throws AuthorizationFailedException, InvalidQuestionException{
+        UserAuthTokenEntity userAuthTokenEntity = userAuthDao.getUserAuthByToken(accessToken);
+        if (userAuthTokenEntity == null) {
+            throw new AuthorizationFailedException("ATHR-001", "User has not signed in");
+        }
+
+        if (userAuthTokenEntity.getLogoutAt() != null) {
+            throw new AuthorizationFailedException("ATHR-002", "User is signed out.Sign in first to post a question");
+        }
+
+        QuestionEntity questionEntity = questionDao.getQuestionById(questionId);
+        if (questionEntity == null) {
+            throw new InvalidQuestionException(
+                    "QUES-001", "The question with entered uuid whose details are to be seen does not exist");
+        }
+        return answerDao.getAllAnswersToQuestion(questionId);
     }
 }

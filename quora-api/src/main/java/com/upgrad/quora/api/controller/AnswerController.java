@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -79,5 +81,28 @@ public class AnswerController {
         Integer deletedQuestions = answerBusinessService.deleteAnswer(answerUuid, accessToken);
         final AnswerDeleteResponse answerDeleteResponse = new AnswerDeleteResponse().id(answerUuid).status("ANSWER DELETED");
         return new ResponseEntity<>(answerDeleteResponse, HttpStatus.OK);
+    }
+
+    /**
+     * This method fetches all the answers to a question in system.
+     *
+     * @param questionId  The questionUuid of the question for which the answers are to be fetched
+     * @param accessToken The JWT access token of the user passed in the request header.
+     * @return ResponseEntity
+     * @throws AuthorizationFailedException This exception is thrown, if the user is not signed in or it has signed out
+     * @throws InvalidQuestionException This exception is thrown if the question is not found in database for the entered questionId
+     */
+    @RequestMapping(method = RequestMethod.GET, path="answer/all/{questionId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<AnswerDetailsResponse>> getAllAnswersToQuestion(@PathVariable("questionId") String questionId, @RequestHeader("authorization") final String accessToken) throws AuthorizationFailedException, InvalidQuestionException {
+        List<AnswerEntity> answerResponses= answerBusinessService.getAllAnswersToQuestion(questionId, accessToken);
+        List<AnswerDetailsResponse> answerDetailsResponses = new ArrayList<>();
+        for(AnswerEntity answerEntity: answerResponses) {
+            AnswerDetailsResponse answerDetailsResponse = new AnswerDetailsResponse();
+            answerDetailsResponse.setId(answerEntity.getUuid());
+            answerDetailsResponse.setQuestionContent(answerEntity.getQuestion().getContent());
+            answerDetailsResponse.setAnswerContent(answerEntity.getAnswer());
+            answerDetailsResponses.add(answerDetailsResponse);
+        }
+        return new ResponseEntity<>(answerDetailsResponses, HttpStatus.OK);
     }
 }

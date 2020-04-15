@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Repository
 public class AnswerDao {
@@ -57,5 +58,15 @@ public class AnswerDao {
      */
     public Integer deleteAnswerByUuid(final String answerUuid) {
         return entityManager.createQuery("delete from AnswerEntity a where a.uuid = :answerUuid").setParameter("answerUuid", answerUuid).executeUpdate();
+    }
+
+    /**
+     * This method fetches all the answer entity in the database based on question Uuid
+     *
+     * @param questionId The questionUuid provided by user to fetch all the answers
+     * @return answerEntity The list of answer Entity
+     */
+    public List<AnswerEntity> getAllAnswersToQuestion(final String questionId) {
+        return entityManager.createNamedQuery("getAllAnswersToQuestion", AnswerEntity.class).setParameter("uuid", questionId).getResultList();
     }
 }
