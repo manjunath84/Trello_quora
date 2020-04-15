@@ -37,4 +37,15 @@ public class AnswerDao {
             return null;
         }
     }
+
+    /**
+     * This method updates the answer entity in the database based on answer Uuid
+     *
+     * @param answerEntity The updated answerEntity provided by user
+     * @return answerEntity The updated answer Entity
+     */
+    public AnswerEntity editAnswerByUuid(AnswerEntity answerEntity) {
+        entityManager.merge(answerEntity);
+        return answerEntity;
+    }
 }
