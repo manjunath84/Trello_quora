@@ -3,6 +3,7 @@ package com.upgrad.quora.service.business;
 import com.upgrad.quora.service.dao.QuestionDao;
 import com.upgrad.quora.service.dao.UserDao;
 import com.upgrad.quora.service.entity.QuestionEntity;
+import com.upgrad.quora.service.entity.UserAuthDao;
 import com.upgrad.quora.service.entity.UserAuthTokenEntity;
 import com.upgrad.quora.service.entity.UserEntity;
 import com.upgrad.quora.service.exception.AuthorizationFailedException;
@@ -23,6 +24,9 @@ public class QuestionBusinessService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private UserAuthDao userAuthDao;
+
     /**
      * This method creates the question entity in the system.
      *
@@ -35,7 +39,7 @@ public class QuestionBusinessService {
     public QuestionEntity createQuestion(QuestionEntity questionEntity, final String authorization)
             throws AuthorizationFailedException {
         //Check and throw AuthorizationFailedException if the JWT token doesn't exist in the database
-        UserAuthTokenEntity userAuthTokenEntity = userDao.getUserAuthToken(authorization);
+        UserAuthTokenEntity userAuthTokenEntity = userAuthDao.getUserAuthByToken(authorization);
         if (userAuthTokenEntity == null) {
             throw new AuthorizationFailedException("ATHR-001", "User has not signed in");
         }
@@ -60,7 +64,7 @@ public class QuestionBusinessService {
      */
     @Transactional(propagation = Propagation.REQUIRED)
     public Integer deleteQuestion(final String questionUuid, final String authorization) throws AuthorizationFailedException, InvalidQuestionException {
-        UserAuthTokenEntity userAuthTokenEntity = userDao.getUserAuthToken(authorization);
+        UserAuthTokenEntity userAuthTokenEntity = userAuthDao.getUserAuthByToken(authorization);
         if (userAuthTokenEntity == null) {
             throw new AuthorizationFailedException("ATHR-001", "User has not signed in");
         }
