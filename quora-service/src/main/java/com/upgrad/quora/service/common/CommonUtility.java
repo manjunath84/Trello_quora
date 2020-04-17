@@ -14,6 +14,14 @@ public class CommonUtility {
     @Autowired
     private UserAuthDao userAuthDao;
 
+    /**
+     * This method authorizes the token from header.
+     *
+     * @param AuthorizationToken      The JWT access token of the user
+     * @param SignoutExceptionMessage The Exception message to show for Exception ATHR-002
+     * @return UserEntity The user data of the authorized user
+     * @throws AuthorizationFailedException This exception is thrown, if the user is not signed in or it has signed out
+     */
     public UserEntity getAutheticatedUser(final String AuthorizationToken, final String SignoutExceptionMessage) throws AuthorizationFailedException {
         UserAuthTokenEntity userAuthTokenEntity = userAuthDao.getUserAuthByToken(AuthorizationToken);
         if (userAuthTokenEntity == null) {
