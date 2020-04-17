@@ -21,6 +21,9 @@ public class AnswerBusinessService {
     private AnswerDao answerDao;
 
     @Autowired
+    private UserAuthDao userAuthDao;
+
+    @Autowired
     private QuestionDao questionDao;
 
     @Autowired
@@ -42,11 +45,13 @@ public class AnswerBusinessService {
         final String signoutExceptionMessage = "User is signed out.Sign in first to post a question";
         UserEntity user = commonUtility.getAutheticatedUser(authorization, signoutExceptionMessage);
 
-        if (questionDao.getQuestionById(questionID) == null) {
+        QuestionEntity question = questionDao.getQuestionById(questionID);
+
+        if (question == null) {
             throw new InvalidQuestionException("QUES-001", "The question entered is invalid");
         }
         answerEntity.setUser(user);
-        answerEntity.setQuestion(questionDao.getQuestionById(questionID));
+        answerEntity.setQuestion(question);
         return answerDao.createAnswer(answerEntity);
     }
 
