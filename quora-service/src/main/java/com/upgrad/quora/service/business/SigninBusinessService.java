@@ -31,11 +31,11 @@ public class SigninBusinessService {
      * @param username,password The user details to be signed in
      * @return userAuthTokenEntity The persisted sign-in user details.
      * @throws AuthenticationFailedException,UserNotFoundException exception is thrown if the given password doesn't match with the password of the user in database
-     * and when the user doesn't exist in the database respectively.
+     *                                                             and when the user doesn't exist in the database respectively.
      */
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public UserAuthTokenEntity authenticate(final String username,final String password) throws AuthenticationFailedException, UserNotFoundException {
+    public UserAuthTokenEntity authenticate(final String username, final String password) throws AuthenticationFailedException, UserNotFoundException {
 
         //Check and throw UserNotFoundException if the user doesn't exist in the database
         UserEntity userEntity = userDao.getUserByEmail(username);
@@ -45,27 +45,24 @@ public class SigninBusinessService {
 
         //Encrypting the password using the salt value, to compare it with the stored password
         final String encryptedPassword = passwordCryptographyProvider.encrypt(password, userEntity.getSalt());
-        if (encryptedPassword.equals(userEntity.getPassword())) {
-            JwtTokenProvider jwtTokenProvider = new JwtTokenProvider(encryptedPassword);
-            UserAuthTokenEntity userAuthToken = new UserAuthTokenEntity();
-            userAuthToken.setUser(userEntity);
-            final ZonedDateTime now = ZonedDateTime.now();
-            final ZonedDateTime expiresAt = now.plusHours(8);
-
-            //Setting the access token and other details for the user upon successful authentication.
-            userAuthToken.setAccessToken(jwtTokenProvider.generateToken(userEntity.getUuid(), now, expiresAt));
-            userAuthToken.setLoginAt(now);
-            userAuthToken.setExpiresAt(expiresAt);
-
-            userAuthDao.createAuthToken(userAuthToken);
-            userDao.updateUser(userEntity);
-
-
-            return userAuthToken;
-        }
         //Check and throw AuthenticationFailedException if the password entered doesn't match with the password stored in the database
-        else {
+        if (!encryptedPassword.equals(userEntity.getPassword())) {
             throw new AuthenticationFailedException("ATH-002", "Password Failed");
         }
+        JwtTokenProvider jwtTokenProvider = new JwtTokenProvider(encryptedPassword);
+        UserAuthTokenEntity userAuthToken = new UserAuthTokenEntity();
+        userAuthToken.setUser(userEntity);
+        final ZonedDateTime now = ZonedDateTime.now();
+        final ZonedDateTime expiresAt = now.plusHours(8);
+
+        //Setting the access token and other details for the user upon successful authentication.
+        userAuthToken.setAccessToken(jwtTokenProvider.generateToken(userEntity.getUuid(), now, expiresAt));
+        userAuthToken.setLoginAt(now);
+        userAuthToken.setExpiresAt(expiresAt);
+
+        userAuthDao.createAuthToken(userAuthToken);
+        userDao.updateUser(userEntity);
+
+        return userAuthToken;
     }
 }
