@@ -26,13 +26,22 @@ public class QuestionDao {
     }
 
     /**
+     * This method fetches all the questions posted by any user
+     *
+     * @return List<QuestionEntity> List of all the questions asked by any user
+     */
+    public List<QuestionEntity> getAllQuestions(){
+        return entityManager.createNamedQuery("getAllQuestions", QuestionEntity.class).getResultList();
+    }
+
+    /**
      * This method fetches all the questions based on the user id
      *
-     * @param userId The id of the user
+     * @param userUuid The uuid of the user
      * @return List<QuestionEntity> List of all the questions asked by the user
      */
-    public List<QuestionEntity> getAllQuestions(final long userId){
-        return entityManager.createNamedQuery("getAllQuestionsByUserId", QuestionEntity.class).setParameter("userId", userId).getResultList();
+    public List<QuestionEntity> getAllQuestionsByUserUuid(final String userUuid){
+        return entityManager.createNamedQuery("getAllQuestionsByUserUuid", QuestionEntity.class).setParameter("userUuid", userUuid).getResultList();
     }
 
     /**
