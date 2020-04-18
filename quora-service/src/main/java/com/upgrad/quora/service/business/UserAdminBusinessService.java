@@ -1,7 +1,7 @@
 package com.upgrad.quora.service.business;
 
+import com.upgrad.quora.service.common.CommonUtility;
 import com.upgrad.quora.service.dao.UserDao;
-import com.upgrad.quora.service.entity.UserAuthTokenEntity;
 import com.upgrad.quora.service.entity.UserEntity;
 import com.upgrad.quora.service.exception.AuthorizationFailedException;
 import com.upgrad.quora.service.exception.UserNotFoundException;
@@ -10,13 +10,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.ZonedDateTime;
-
 @Service
 public class UserAdminBusinessService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private CommonUtility commonUtility;
 
     /**
      * This method deletes user in system by admin.
@@ -29,19 +30,8 @@ public class UserAdminBusinessService {
      */
     @Transactional(propagation = Propagation.REQUIRED)
     public Integer deleteUser(final String userUuid, final String authToken) throws AuthorizationFailedException, UserNotFoundException {
-        UserAuthTokenEntity userAuthTokenEntity = userDao.getUserAuthToken(authToken);
-        //Check if the userAuthToken is not present in the database
-        if (userAuthTokenEntity == null) {
-            throw new AuthorizationFailedException("ATHR-001", "User has not signed in");
-        }
-
-        //User is signed out if either JWT token is expired or user has logged out
-        final ZonedDateTime now = ZonedDateTime.now();
-        if (userAuthTokenEntity.getExpiresAt().isBefore(now) || userAuthTokenEntity.getLogoutAt() != null) {
-            throw new AuthorizationFailedException("ATHR-002", "User is signed out");
-        }
-
-        UserEntity userEntity = userAuthTokenEntity.getUser();
+        final String signoutExceptionMessage = "User is signed out";
+        UserEntity userEntity = commonUtility.getAuthenticatedUser(authToken, signoutExceptionMessage);
         String userRole = userEntity.getRole();
         //Check if the user who is logged in is not an admin
         if (!userRole.equals("admin")) {
