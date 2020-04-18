@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Repository
 public class QuestionDao {
@@ -22,6 +23,16 @@ public class QuestionDao {
     public QuestionEntity createQuestion(QuestionEntity questionEntity) {
         entityManager.persist(questionEntity);
         return questionEntity;
+    }
+
+    /**
+     * This method fetches all the questions based on the user id
+     *
+     * @param userId The id of the user
+     * @return List<QuestionEntity> List of all the questions asked by the user
+     */
+    public List<QuestionEntity> getAllQuestions(final long userId){
+        return entityManager.createNamedQuery("getAllQuestionsByUserId", QuestionEntity.class).setParameter("userId", userId).getResultList();
     }
 
     /**

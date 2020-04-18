@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 
 @Service
 public class QuestionBusinessService {
@@ -47,6 +48,21 @@ public class QuestionBusinessService {
         }
         questionEntity.setUser(userAuthTokenEntity.getUser());
         return questionDao.createQuestion(questionEntity);
+    }
+
+    public List<QuestionEntity> getAllQuestions(final String authorization) throws AuthorizationFailedException {
+        //Check and throw AuthorizationFailedException if the JWT token doesn't exist in the database
+        UserAuthTokenEntity userAuthTokenEntity = userDao.getUserAuthToken(authorization);
+        if (userAuthTokenEntity == null) {
+            throw new AuthorizationFailedException("ATHR-001", "User has not signed in");
+        }
+        final ZonedDateTime now = ZonedDateTime.now();
+        //User is signed out if either JWT token is expired or user has logged out
+        if (userAuthTokenEntity.getExpiresAt().isBefore(now) ||
+                (userAuthTokenEntity.getLogoutAt() != null)) {
+            throw new AuthorizationFailedException("ATHR-002", "User is signed out.Sign in first to get all questions");
+        }
+        return questionDao.getAllQuestions(userAuthTokenEntity.getUser().getId());
     }
 
     /**
