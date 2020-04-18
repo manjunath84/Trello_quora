@@ -8,6 +8,7 @@ import com.upgrad.quora.service.business.QuestionBusinessService;
 import com.upgrad.quora.service.entity.QuestionEntity;
 import com.upgrad.quora.service.exception.AuthorizationFailedException;
 import com.upgrad.quora.service.exception.InvalidQuestionException;
+import com.upgrad.quora.service.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,7 +33,7 @@ public class QuestionController {
      * @param questionRequest The question entered by the user
      * @param authorization The JWT access token of the user passed in the request header.
      * @return ResponseEntity
-     * @throws AuthorizationFailedException This exception is thrown if user has not singed in or singed out.
+     * @throws AuthorizationFailedException This exception is thrown if user has not signed in or if he is signed out.
      */
     @RequestMapping(method = RequestMethod.POST, path = "question/create", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<QuestionResponse> createQuestion(
@@ -49,11 +50,11 @@ public class QuestionController {
     }
 
     /**
-     * This method gets all the questions posted by a user
+     * This method gets all the questions posted by any user
      *
      * @param authorization The JWT access token of the user passed in the request header.
      * @return ResponseEntity
-     * @throws AuthorizationFailedException This exception is thrown if user has not singed in or signed out.
+     * @throws AuthorizationFailedException This exception is thrown if user has not signed in or if he is signed out.
      */
     @RequestMapping(method = RequestMethod.GET, path = "question/all", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<QuestionDetailsResponse>> getAllQuestions(
@@ -69,12 +70,34 @@ public class QuestionController {
     }
 
     /**
+     * This method is used to fetch all the questions posted by a specific user
+     *
+     * @param authorization The JWT access token of the user passed in the request header.
+     * @return ResponseEntity
+     * @throws AuthorizationFailedException This exception is thrown if user has not signed in or if he is signed out.
+     */
+    @RequestMapping(method = RequestMethod.GET, path = "question/all/{userId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<QuestionDetailsResponse>> getAllQuestionsByUser(
+            @PathVariable("userId") final String userUuid,
+            @RequestHeader("authorization") final String authorization)
+            throws AuthorizationFailedException, UserNotFoundException {
+
+        final List<QuestionEntity> questionList = questionBusinessService.getAllQuestionsByUser(authorization, userUuid);
+        List<QuestionDetailsResponse> questionDetailsResponseList = new ArrayList<>();
+        for(QuestionEntity questionEntity: questionList){
+            questionDetailsResponseList.add(
+                    new QuestionDetailsResponse().id(questionEntity.getUuid()).content(questionEntity.getContent()));
+        }
+        return new ResponseEntity<>(questionDetailsResponseList, HttpStatus.OK);
+    }
+
+    /**
      * This method deletes question in system.
      *
      * @param questionUuid  The questionId of the question to be deleted
      * @param authorization The JWT access token of the user passed in the request header.
      * @return ResponseEntity
-     * @throws AuthorizationFailedException This exception is thrown if user has not singed in or singed out.
+     * @throws AuthorizationFailedException This exception is thrown if user has not signed in or if he is signed out.
      * @throws InvalidQuestionException This exception is thrown if the question doesn't exist in the database
      */
     @RequestMapping(method = RequestMethod.DELETE, path = "question/delete/{questionId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
