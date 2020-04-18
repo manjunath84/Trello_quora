@@ -101,7 +101,7 @@ public class QuestionBusinessService {
         }
         final UserEntity retrievedUser = userDao.getUserByUuid(userUuid);
         if(retrievedUser == null){
-            throw new UserNotFoundException("USR-01", "User with entered uuid whose question details are to be seen does not exist");
+            throw new UserNotFoundException("USR-001", "User with entered uuid whose question details are to be seen does not exist");
         }
         return questionDao.getAllQuestionsByUserUuid(userUuid);
     }

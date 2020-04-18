@@ -126,7 +126,7 @@ public class QuestionControllerTest {
                 .andExpect(status().isNotFound())
                 .andExpect(MockMvcResultMatchers.jsonPath("code").value("QUES-001"));
     }
-/*
+
     //This test case passes when you try to get all the questions posted by a specific user but the JWT token entered does not exist in the database.
     @Test
     public void getAllQuestionsByUserWithNonExistingAccessToken() throws Exception {
@@ -150,7 +150,5 @@ public class QuestionControllerTest {
                 .andExpect(status().isNotFound())
                 .andExpect(MockMvcResultMatchers.jsonPath("code").value("USR-001"));
     }
-*/
-
 
 }
