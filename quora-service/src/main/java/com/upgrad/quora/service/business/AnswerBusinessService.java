@@ -29,11 +29,11 @@ public class AnswerBusinessService {
     /**
      * This method creates the answer entity in the system.
      *
-     * @param answerEntity The question entered by the user
-     * @param authorization  The JWT access token of the user
+     * @param answerEntity  The question entered by the user
+     * @param authorization The JWT access token of the user
      * @return AnswerEntity The persited answer entity.
      * @throws AuthorizationFailedException This exception is thrown if the user is not signed in.
-     * @throws InvalidQuestionException This exception is thrown if the question doesn't exist in the database
+     * @throws InvalidQuestionException     This exception is thrown if the question doesn't exist in the database
      */
     @Transactional(propagation = Propagation.REQUIRED)
     public AnswerEntity createAnswer(AnswerEntity answerEntity, String questionID, final String authorization)
@@ -46,28 +46,29 @@ public class AnswerBusinessService {
         final ZonedDateTime now = ZonedDateTime.now();
         //User is signed out if either JWT token is expired or user has logged out
         if (userAuthTokenEntity.getExpiresAt().isBefore(now) &&
-                (userAuthTokenEntity.getLogoutAt() != null) ){
+                (userAuthTokenEntity.getLogoutAt() != null)) {
             throw new AuthorizationFailedException("ATHR-002", "User is signed out.Sign in first to post a question");
         }
-        if(questionDao.getQuestionById(questionID)==null) {
-            throw new InvalidQuestionException("QUES-001","The question entered is invalid");
+        QuestionEntity question = questionDao.getQuestionById(questionID);
+        if (question == null) {
+            throw new InvalidQuestionException("QUES-001", "The question entered is invalid");
         }
         answerEntity.setUser(userAuthTokenEntity.getUser());
-        answerEntity.setQuestion(questionDao.getQuestionById(questionID));
+        answerEntity.setQuestion(question);
         return answerDao.createAnswer(answerEntity);
     }
 
     /**
      * This method updates the answer entity in the system.
      *
-     * @param answerUuid  The answerUuid entered by the user
+     * @param answerUuid    The answerUuid entered by the user
      * @param authorization The JWT access token of the user
      * @return AnswerEntity The updated AnswerEntity from the database.
      * @throws AuthorizationFailedException This exception is thrown, if the user is not signed in or it has signed out
-     * @throws AnswerNotFoundException This exception is thrown if the answer is not found in database for the entered answerUuid
+     * @throws AnswerNotFoundException      This exception is thrown if the answer is not found in database for the entered answerUuid
      */
     @Transactional(propagation = Propagation.REQUIRED)
-    public AnswerEntity editAnswer( final String editedContent, final String authorization, final String answerUuid) throws AuthorizationFailedException, AnswerNotFoundException {
+    public AnswerEntity editAnswer(final String editedContent, final String authorization, final String answerUuid) throws AuthorizationFailedException, AnswerNotFoundException {
         UserAuthTokenEntity userAuthTokenEntity = userAuthDao.getUserAuthByToken(authorization);
         if (userAuthTokenEntity == null) {
             throw new AuthorizationFailedException("ATHR-001", "User has not signed in");
@@ -95,11 +96,11 @@ public class AnswerBusinessService {
     /**
      * This method deletes the answer entity in the system.
      *
-     * @param answerUuid  The answerUuid entered by the user
+     * @param answerUuid    The answerUuid entered by the user
      * @param authorization The JWT access token of the user
      * @return Count The count of answer entity deleted.
      * @throws AuthorizationFailedException This exception is thrown, if the user is not signed in or it has signed out
-     * @throws AnswerNotFoundException This exception is thrown if the answer is not found in database for the entered answerUuid
+     * @throws AnswerNotFoundException      This exception is thrown if the answer is not found in database for the entered answerUuid
      */
     @Transactional(propagation = Propagation.REQUIRED)
     public Integer deleteAnswer(final String answerUuid, final String authorization) throws AuthorizationFailedException, AnswerNotFoundException {
@@ -133,9 +134,9 @@ public class AnswerBusinessService {
      * @param accessToken The JWT access token of the user
      * @return AnswerEntity The list of AnswerEntity for a given question from the database.
      * @throws AuthorizationFailedException This exception is thrown, if the user is not signed in or it has signed out
-     * @throws InvalidQuestionException This exception is thrown if the question is not found in database for the entered answerUuid
+     * @throws InvalidQuestionException     This exception is thrown if the question is not found in database for the entered answerUuid
      */
-    public List<AnswerEntity> getAllAnswersToQuestion(String questionId, String accessToken) throws AuthorizationFailedException, InvalidQuestionException{
+    public List<AnswerEntity> getAllAnswersToQuestion(String questionId, String accessToken) throws AuthorizationFailedException, InvalidQuestionException {
         UserAuthTokenEntity userAuthTokenEntity = userAuthDao.getUserAuthByToken(accessToken);
         if (userAuthTokenEntity == null) {
             throw new AuthorizationFailedException("ATHR-001", "User has not signed in");
