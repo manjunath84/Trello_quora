@@ -1,6 +1,6 @@
 package com.upgrad.quora.service.business;
 
-import com.upgrad.quora.service.dao.UserDao;
+import com.upgrad.quora.service.dao.UserAuthDao;
 import com.upgrad.quora.service.entity.UserAuthTokenEntity;
 import com.upgrad.quora.service.exception.SignOutRestrictedException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.time.ZonedDateTime;
 public class SignoutBusinessService {
 
     @Autowired
-    private UserDao userDao;
+    private UserAuthDao userAuthDao;
 
     /**
      * This method is used to sign out the given new user
@@ -28,16 +28,16 @@ public class SignoutBusinessService {
     public UserAuthTokenEntity signout(String authToken) throws SignOutRestrictedException {
 
         //Check and throw SignOutRestrictedException if the user doesn't exist in the database
-        UserAuthTokenEntity userAuthTokenEntity= userDao.getUserAuthToken(authToken);
-        if(userAuthTokenEntity==null) {
+        UserAuthTokenEntity userAuthTokenEntity = userAuthDao.getUserAuthByToken(authToken);
+        if (userAuthTokenEntity == null) {
             throw new SignOutRestrictedException("SGR-001", "User is not Signed in");
         }
 
         final ZonedDateTime now = ZonedDateTime.now();
         userAuthTokenEntity.setLogoutAt(now);
-        userDao.updateUserAuthToken(userAuthTokenEntity);
+        userAuthDao.updateUserAuth(userAuthTokenEntity);
 
-        return userDao.getUserAuthToken(authToken);
+        return userAuthTokenEntity;
     }
 
 }
