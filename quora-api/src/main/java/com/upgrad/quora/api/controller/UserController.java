@@ -4,9 +4,7 @@ import com.upgrad.quora.api.model.SigninResponse;
 import com.upgrad.quora.api.model.SignoutResponse;
 import com.upgrad.quora.api.model.SignupUserRequest;
 import com.upgrad.quora.api.model.SignupUserResponse;
-import com.upgrad.quora.service.business.SigninBusinessService;
-import com.upgrad.quora.service.business.SignoutBusinessService;
-import com.upgrad.quora.service.business.SignupBusinessService;
+import com.upgrad.quora.service.business.UserBusinessService;
 import com.upgrad.quora.service.entity.UserAuthTokenEntity;
 import com.upgrad.quora.service.entity.UserEntity;
 import com.upgrad.quora.service.exception.AuthenticationFailedException;
@@ -31,13 +29,7 @@ import java.util.UUID;
 public class UserController {
 
     @Autowired
-    private SignupBusinessService signupBusinessService;
-
-    @Autowired
-    private SigninBusinessService signinBusinessService;
-
-    @Autowired
-    private SignoutBusinessService signoutBusinessService;
+    private UserBusinessService userBusinessService;
 
     /**
      * This method exposes endpoint to register a new user in the Quora Application
@@ -65,11 +57,11 @@ public class UserController {
         userEntity.setContactNumber(signupUserRequest.getContactNumber());
 
         //Invoke business service class to sign up the user
-        final UserEntity createdUserEntity = signupBusinessService.signup(userEntity);
+        final UserEntity createdUserEntity = userBusinessService.signup(userEntity);
         SignupUserResponse signupUserResponse = new SignupUserResponse()
                 .id(createdUserEntity.getUuid()).status("USER SUCCESSFULLY REGISTERED");
 
-        return new ResponseEntity<SignupUserResponse>(signupUserResponse, HttpStatus.CREATED);
+        return new ResponseEntity<>(signupUserResponse, HttpStatus.CREATED);
     }
 
     /**
@@ -87,14 +79,14 @@ public class UserController {
         String decodedText = new String(decode);
         String[] decodedArray = decodedText.split(":");
 
-        UserAuthTokenEntity userAuthToken = signinBusinessService.authenticate(decodedArray[0], decodedArray[1]);
+        UserAuthTokenEntity userAuthToken = userBusinessService.authenticate(decodedArray[0], decodedArray[1]);
         UserEntity user = userAuthToken.getUser();
 
         SigninResponse signinResponse = new SigninResponse().id(user.getUuid()).message("SIGNED IN SUCCESSFULLY");
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("access-token", userAuthToken.getAccessToken());
-        return new ResponseEntity<SigninResponse>(signinResponse, headers, HttpStatus.OK);
+        return new ResponseEntity<>(signinResponse, headers, HttpStatus.OK);
     }
 
     /**
@@ -107,11 +99,12 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST, path = "user/signout", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<SignoutResponse> signout(@RequestHeader("authorization") final String authorization) throws SignOutRestrictedException {
 
-        UserAuthTokenEntity userAuthTokenEntity = signoutBusinessService.signout(authorization);
-        SignoutResponse signoutResponse= new SignoutResponse().id(userAuthTokenEntity.getUser().getUuid()).message("SIGNED OUT SUCCESSFULLY");
+        UserAuthTokenEntity userAuthTokenEntity = userBusinessService.signout(authorization);
+        final String userUUID = userAuthTokenEntity.getUser().getUuid();
+        SignoutResponse signoutResponse = new SignoutResponse().id(userUUID).message("SIGNED OUT SUCCESSFULLY");
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("user-uuid", userAuthTokenEntity.getUser().getUuid());
-        return new ResponseEntity<SignoutResponse>(signoutResponse, headers, HttpStatus.OK);
+        headers.add("user-uuid", userUUID);
+        return new ResponseEntity<>(signoutResponse, headers, HttpStatus.OK);
     }
 }
