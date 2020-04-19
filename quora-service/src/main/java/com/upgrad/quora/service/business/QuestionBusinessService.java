@@ -1,10 +1,9 @@
 package com.upgrad.quora.service.business;
 
+import com.upgrad.quora.service.common.CommonUtility;
 import com.upgrad.quora.service.dao.QuestionDao;
-import com.upgrad.quora.service.dao.UserAuthDao;
 import com.upgrad.quora.service.dao.UserDao;
 import com.upgrad.quora.service.entity.QuestionEntity;
-import com.upgrad.quora.service.entity.UserAuthTokenEntity;
 import com.upgrad.quora.service.entity.UserEntity;
 import com.upgrad.quora.service.exception.AuthorizationFailedException;
 import com.upgrad.quora.service.exception.InvalidQuestionException;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -24,10 +22,10 @@ public class QuestionBusinessService {
     private QuestionDao questionDao;
 
     @Autowired
-    private UserAuthDao userAuthDao;
+    private UserDao userDao;
 
     @Autowired
-    private UserDao userDao;
+    private CommonUtility commonUtility;
 
     /**
      * This method creates the question entity in the system.
@@ -38,20 +36,11 @@ public class QuestionBusinessService {
      * @throws AuthorizationFailedException This exception is thrown if user has not signed in or if he is signed out.
      */
     @Transactional(propagation = Propagation.REQUIRED)
-    public QuestionEntity createQuestion(QuestionEntity questionEntity, final String authorization)
-            throws AuthorizationFailedException {
+    public QuestionEntity createQuestion(QuestionEntity questionEntity, final String authorization) throws AuthorizationFailedException {
         //Check and throw AuthorizationFailedException if the JWT token doesn't exist in the database
-        UserAuthTokenEntity userAuthTokenEntity = userAuthDao.getUserAuthByToken(authorization);
-        if (userAuthTokenEntity == null) {
-            throw new AuthorizationFailedException("ATHR-001", "User has not signed in");
-        }
-        final ZonedDateTime now = ZonedDateTime.now();
-        //User is signed out if either JWT token is expired or user has logged out
-        if (userAuthTokenEntity.getExpiresAt().isBefore(now) ||
-                (userAuthTokenEntity.getLogoutAt() != null && userAuthTokenEntity.getLogoutAt().isBefore(now))) {
-            throw new AuthorizationFailedException("ATHR-002", "User is signed out.Sign in first to post a question");
-        }
-        questionEntity.setUser(userAuthTokenEntity.getUser());
+        final String signoutExceptionMessage = "User is signed out.Sign in first to post a question";
+        UserEntity AuthorizedUser = commonUtility.getAuthenticatedUser(authorization, signoutExceptionMessage);
+        questionEntity.setUser(AuthorizedUser);
         return questionDao.createQuestion(questionEntity);
     }
 
@@ -64,16 +53,8 @@ public class QuestionBusinessService {
      */
     public List<QuestionEntity> getAllQuestions(final String authorization) throws AuthorizationFailedException {
         //Check and throw AuthorizationFailedException if the JWT token doesn't exist in the database
-        UserAuthTokenEntity userAuthTokenEntity = userAuthDao.getUserAuthByToken(authorization);
-        if (userAuthTokenEntity == null) {
-            throw new AuthorizationFailedException("ATHR-001", "User has not signed in");
-        }
-        final ZonedDateTime now = ZonedDateTime.now();
-        //User is signed out if either JWT token is expired or user has logged out
-        if (userAuthTokenEntity.getExpiresAt().isBefore(now) ||
-                (userAuthTokenEntity.getLogoutAt() != null)) {
-            throw new AuthorizationFailedException("ATHR-002", "User is signed out.Sign in first to get all questions");
-        }
+        final String signoutExceptionMessage = "User is signed out.Sign in first to get all questions";
+        UserEntity AuthorizedUser = commonUtility.getAuthenticatedUser(authorization, signoutExceptionMessage);
         return questionDao.getAllQuestions();
     }
 
@@ -81,26 +62,17 @@ public class QuestionBusinessService {
      * This method fetches all the questions asked by an user
      *
      * @param authorization The JWT access token of the user
-     * @param userUuid The uuid of the user whose questions needs to be fetched
+     * @param userUuid      The uuid of the user whose questions needs to be fetched
      * @return List<QuestionEntity> List of all the questions asked by the corresponding user
-     * @throws AuthorizationFailedException  This exception is thrown if user has not signed in or if he is signed out.
-     * @throws UserNotFoundException This exception is thrown if entered user uuid does not exist in the system.
+     * @throws AuthorizationFailedException This exception is thrown if user has not signed in or if he is signed out.
+     * @throws UserNotFoundException        This exception is thrown if entered user uuid does not exist in the system.
      */
-    public List<QuestionEntity> getAllQuestionsByUser(final String authorization,final String userUuid)
-            throws AuthorizationFailedException, UserNotFoundException {
+    public List<QuestionEntity> getAllQuestionsByUser(final String authorization, final String userUuid) throws AuthorizationFailedException, UserNotFoundException {
         //Check and throw AuthorizationFailedException if the JWT token doesn't exist in the database
-        UserAuthTokenEntity userAuthTokenEntity = userAuthDao.getUserAuthByToken(authorization);
-        if (userAuthTokenEntity == null) {
-            throw new AuthorizationFailedException("ATHR-001", "User has not signed in");
-        }
-        final ZonedDateTime now = ZonedDateTime.now();
-        //User is signed out if either JWT token is expired or user has logged out
-        if (userAuthTokenEntity.getExpiresAt().isBefore(now) ||
-                (userAuthTokenEntity.getLogoutAt() != null)) {
-            throw new AuthorizationFailedException("ATHR-002", "User is signed out.Sign in first to get all questions posted by a specific user");
-        }
+        final String signoutExceptionMessage = "User is signed out.Sign in first to get all questions posted by a specific user";
+        UserEntity AuthorizedUser = commonUtility.getAuthenticatedUser(authorization, signoutExceptionMessage);
         final UserEntity retrievedUser = userDao.getUserByUuid(userUuid);
-        if(retrievedUser == null){
+        if (retrievedUser == null) {
             throw new UserNotFoundException("USR-001", "User with entered uuid whose question details are to be seen does not exist");
         }
         return questionDao.getAllQuestionsByUserUuid(userUuid);
@@ -110,31 +82,22 @@ public class QuestionBusinessService {
      * This method is used to edit the given question in the system
      *
      * @param questionEntity The editted question entity
-     * @param authorization The JWT access token of the user
+     * @param authorization  The JWT access token of the user
      * @throws AuthorizationFailedException This exception is thrown if user has not signed in or if he is signed out.
-     * @throws InvalidQuestionException This exception is thrown if the given question uuid does not exits.
+     * @throws InvalidQuestionException     This exception is thrown if the given question uuid does not exits.
      */
     @Transactional(propagation = Propagation.REQUIRED)
-    public void editQuestion(final QuestionEntity questionEntity, final String authorization)
-            throws AuthorizationFailedException, InvalidQuestionException {
+    public void editQuestion(final QuestionEntity questionEntity, final String authorization) throws AuthorizationFailedException, InvalidQuestionException {
 
         //Check and throw AuthorizationFailedException if the JWT token doesn't exist in the database
-        UserAuthTokenEntity userAuthTokenEntity = userAuthDao.getUserAuthByToken(authorization);
-        if (userAuthTokenEntity == null) {
-            throw new AuthorizationFailedException("ATHR-001", "User has not signed in");
-        }
-        final ZonedDateTime now = ZonedDateTime.now();
-        //User is signed out if either JWT token is expired or user has logged out
-        if (userAuthTokenEntity.getExpiresAt().isBefore(now) ||
-                (userAuthTokenEntity.getLogoutAt() != null)) {
-            throw new AuthorizationFailedException("ATHR-002", "User is signed out.Sign in first to edit the question");
-        }
+        final String signoutExceptionMessage = "User is signed out.Sign in first to edit the question";
+        UserEntity AuthorizedUser = commonUtility.getAuthenticatedUser(authorization, signoutExceptionMessage);
 
         final QuestionEntity existingQuestionEntity = questionDao.getQuestionByUuid(questionEntity.getUuid());
-        if(existingQuestionEntity == null){
+        if (existingQuestionEntity == null) {
             throw new InvalidQuestionException("QUES-001", "Entered question uuid does not exist");
         }
-        if(existingQuestionEntity.getUser().getId() != (userAuthTokenEntity.getUser().getId())){
+        if (existingQuestionEntity.getUser().getId() != (AuthorizedUser.getId())) {
             throw new AuthorizationFailedException("ATHR-003", "Only the question owner can edit the question");
         }
 
@@ -155,16 +118,8 @@ public class QuestionBusinessService {
      */
     @Transactional(propagation = Propagation.REQUIRED)
     public Integer deleteQuestion(final String questionUuid, final String authorization) throws AuthorizationFailedException, InvalidQuestionException {
-        UserAuthTokenEntity userAuthTokenEntity = userAuthDao.getUserAuthByToken(authorization);
-        if (userAuthTokenEntity == null) {
-            throw new AuthorizationFailedException("ATHR-001", "User has not signed in");
-        }
-
-        if (userAuthTokenEntity.getLogoutAt() != null) {
-            throw new AuthorizationFailedException("ATHR-002", "User is signed out.Sign in first to post a question");
-        }
-
-        UserEntity user = userAuthTokenEntity.getUser();
+        final String signoutExceptionMessage = "User is signed out.Sign in first to post a question";
+        UserEntity user = commonUtility.getAuthenticatedUser(authorization, signoutExceptionMessage);
         QuestionEntity question = questionDao.getQuestionByUuid(questionUuid);
         if (question == null) {
             throw new InvalidQuestionException("QUES-001", "Entered question uuid does not exist");
