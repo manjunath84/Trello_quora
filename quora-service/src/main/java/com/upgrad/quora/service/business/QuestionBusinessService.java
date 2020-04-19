@@ -107,6 +107,44 @@ public class QuestionBusinessService {
     }
 
     /**
+     * This method is used to edit the given question in the system
+     *
+     * @param questionEntity The editted question entity
+     * @param authorization The JWT access token of the user
+     * @throws AuthorizationFailedException This exception is thrown if user has not signed in or if he is signed out.
+     * @throws InvalidQuestionException This exception is thrown if the given question uuid does not exits.
+     */
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void editQuestion(final QuestionEntity questionEntity, final String authorization)
+            throws AuthorizationFailedException, InvalidQuestionException {
+
+        //Check and throw AuthorizationFailedException if the JWT token doesn't exist in the database
+        UserAuthTokenEntity userAuthTokenEntity = userAuthDao.getUserAuthByToken(authorization);
+        if (userAuthTokenEntity == null) {
+            throw new AuthorizationFailedException("ATHR-001", "User has not signed in");
+        }
+        final ZonedDateTime now = ZonedDateTime.now();
+        //User is signed out if either JWT token is expired or user has logged out
+        if (userAuthTokenEntity.getExpiresAt().isBefore(now) ||
+                (userAuthTokenEntity.getLogoutAt() != null)) {
+            throw new AuthorizationFailedException("ATHR-002", "User is signed out.Sign in first to edit the question");
+        }
+
+        final QuestionEntity existingQuestionEntity = questionDao.getQuestionByUuid(questionEntity.getUuid());
+        if(existingQuestionEntity == null){
+            throw new InvalidQuestionException("QUES-001", "Entered question uuid does not exist");
+        }
+        if(existingQuestionEntity.getUser().getId() != (userAuthTokenEntity.getUser().getId())){
+            throw new AuthorizationFailedException("ATHR-003", "Only the question owner can edit the question");
+        }
+
+        questionEntity.setId(existingQuestionEntity.getId());
+        questionEntity.setCreatedDate(existingQuestionEntity.getCreatedDate());
+        questionEntity.setUser(existingQuestionEntity.getUser());
+        questionDao.editQuestion(questionEntity);
+    }
+
+    /**
      * This method deletes the question entity in the system.
      *
      * @param questionUuid  The questionUuid entered by the user
@@ -127,7 +165,7 @@ public class QuestionBusinessService {
         }
 
         UserEntity user = userAuthTokenEntity.getUser();
-        QuestionEntity question = questionDao.getQuestionById(questionUuid);
+        QuestionEntity question = questionDao.getQuestionByUuid(questionUuid);
         if (question == null) {
             throw new InvalidQuestionException("QUES-001", "Entered question uuid does not exist");
         }
