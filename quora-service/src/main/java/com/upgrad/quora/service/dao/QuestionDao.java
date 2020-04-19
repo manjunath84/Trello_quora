@@ -50,12 +50,21 @@ public class QuestionDao {
      * @param questionUuid The questionUuid provided by user
      * @return QuestionEntity The persisted question object
      */
-    public QuestionEntity getQuestionById(final String questionUuid) {
+    public QuestionEntity getQuestionByUuid(final String questionUuid) {
         try {
-            return entityManager.createNamedQuery("getQuestionById", QuestionEntity.class).setParameter("questionUuid", questionUuid).getSingleResult();
+            return entityManager.createNamedQuery("getQuestionByUuid", QuestionEntity.class).setParameter("questionUuid", questionUuid).getSingleResult();
         } catch (NoResultException nre) {
             return null;
         }
+    }
+
+    /**
+     * This method edits the changes in the question entity to the database
+     *
+     * @param questionEntity The Question Entity object to be updated to the database
+     */
+    public void editQuestion(final QuestionEntity questionEntity){
+        entityManager.merge(questionEntity);
     }
 
     /**
