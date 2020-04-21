@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Repository
 public class QuestionDao {
@@ -25,17 +26,45 @@ public class QuestionDao {
     }
 
     /**
+     * This method fetches all the questions posted by any user
+     *
+     * @return List<QuestionEntity> List of all the questions asked by any user
+     */
+    public List<QuestionEntity> getAllQuestions(){
+        return entityManager.createNamedQuery("getAllQuestions", QuestionEntity.class).getResultList();
+    }
+
+    /**
+     * This method fetches all the questions based on the user id
+     *
+     * @param userUuid The uuid of the user
+     * @return List<QuestionEntity> List of all the questions asked by the user
+     */
+    public List<QuestionEntity> getAllQuestionsByUserUuid(final String userUuid){
+        return entityManager.createNamedQuery("getAllQuestionsByUserUuid", QuestionEntity.class).setParameter("userUuid", userUuid).getResultList();
+    }
+
+    /**
      * This method fetches the question entity from the database based on Question Uuid
      *
      * @param questionUuid The questionUuid provided by user
      * @return QuestionEntity The persisted question object
      */
-    public QuestionEntity getQuestionById(final String questionUuid) {
+    public QuestionEntity getQuestionByUuid(final String questionUuid) {
         try {
-            return entityManager.createNamedQuery("getQuestionById", QuestionEntity.class).setParameter("questionUuid", questionUuid).getSingleResult();
+            return entityManager.createNamedQuery("getQuestionByUuid", QuestionEntity.class).setParameter("questionUuid", questionUuid).getSingleResult();
         } catch (NoResultException nre) {
             return null;
         }
+    }
+
+    /**
+     * This method edits the changes in the question entity to the database
+     *
+     * @param questionEntity The Question Entity object to be updated to the database
+     */
+    public void editQuestion(final QuestionEntity questionEntity){
+        entityManager.merge(questionEntity);
     }
 
     /**
