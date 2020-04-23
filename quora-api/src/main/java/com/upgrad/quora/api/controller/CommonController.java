@@ -21,7 +21,7 @@ public class CommonController {
     /**
      * This method fetches user details from the system.
      *
-     * @param userId  The questionId of the question to be deleted
+     * @param userId  The userId of the User to be fetched from database.
      * @param accessToken The JWT access token of the user passed in the request header.
      * @return ResponseEntity
      * @throws AuthorizationFailedException This exception is thrown, if the user is not signed in or it has signed out
