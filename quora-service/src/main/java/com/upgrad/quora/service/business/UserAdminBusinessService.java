@@ -1,6 +1,5 @@
 package com.upgrad.quora.service.business;
 
-import com.upgrad.quora.service.common.CommonUtility;
 import com.upgrad.quora.service.dao.UserDao;
 import com.upgrad.quora.service.entity.UserEntity;
 import com.upgrad.quora.service.exception.AuthorizationFailedException;
@@ -17,7 +16,7 @@ public class UserAdminBusinessService {
     private UserDao userDao;
 
     @Autowired
-    private CommonUtility commonUtility;
+    private CommonBusinessService commonBusinessService;
 
     /**
      * This method deletes user in system by admin.
@@ -31,7 +30,7 @@ public class UserAdminBusinessService {
     @Transactional(propagation = Propagation.REQUIRED)
     public Integer deleteUser(final String userUuid, final String authToken) throws AuthorizationFailedException, UserNotFoundException {
         final String signoutExceptionMessage = "User is signed out";
-        UserEntity userEntity = commonUtility.getAuthenticatedUser(authToken, signoutExceptionMessage);
+        UserEntity userEntity = commonBusinessService.getAuthenticatedUser(authToken, signoutExceptionMessage);
         String userRole = userEntity.getRole();
         //Check if the user who is logged in is not an admin
         if (!userRole.equals("admin")) {
