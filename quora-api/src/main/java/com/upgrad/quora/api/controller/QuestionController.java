@@ -28,7 +28,7 @@ public class QuestionController {
      * This method creates the new question in system.
      *
      * @param questionRequest The question entered by the user
-     * @param authorization The JWT access token of the user passed in the request header.
+     * @param authorization   The JWT access token of the user passed in the request header.
      * @return ResponseEntity
      * @throws AuthorizationFailedException This exception is thrown if user has not signed in or if he is signed out.
      */
@@ -59,7 +59,7 @@ public class QuestionController {
 
         final List<QuestionEntity> questionList = questionBusinessService.getAllQuestions(authorization);
         List<QuestionDetailsResponse> questionDetailsResponseList = new ArrayList<>();
-        for(QuestionEntity questionEntity: questionList){
+        for (QuestionEntity questionEntity : questionList) {
             questionDetailsResponseList.add(
                     new QuestionDetailsResponse().id(questionEntity.getUuid()).content(questionEntity.getContent()));
         }
@@ -81,7 +81,7 @@ public class QuestionController {
 
         final List<QuestionEntity> questionList = questionBusinessService.getAllQuestionsByUser(authorization, userUuid);
         List<QuestionDetailsResponse> questionDetailsResponseList = new ArrayList<>();
-        for(QuestionEntity questionEntity: questionList){
+        for (QuestionEntity questionEntity : questionList) {
             questionDetailsResponseList.add(
                     new QuestionDetailsResponse().id(questionEntity.getUuid()).content(questionEntity.getContent()));
         }
@@ -89,14 +89,14 @@ public class QuestionController {
     }
 
     /**
-     * This method is used to a question that has been posted by a user.
+     * This method is used to edit a question that has been posted by a user.
      *
-     * @param questionUuid The uuid of the question
+     * @param questionUuid        The uuid of the question
      * @param questionEditRequest The edited question details
-     * @param authorization The JWT access token of the user passed in the request header.
+     * @param authorization       The JWT access token of the user passed in the request header.
      * @return ResponseEntity
      * @throws AuthorizationFailedException This exception is thrown if user has not signed in or if he is signed out or if non-owner edits the question
-     * @throws InvalidQuestionException This exception is thrown if the uuid provided does not exists in the system
+     * @throws InvalidQuestionException     This exception is thrown if the uuid provided does not exists in the system
      */
     @RequestMapping(method = RequestMethod.PUT, path = "question/edit/{questionId}",
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -114,13 +114,13 @@ public class QuestionController {
     }
 
     /**
-     * This method deletes question in system.
+     * This method is used to delete a question that has been posted by a user.
      *
      * @param questionUuid  The questionId of the question to be deleted
      * @param authorization The JWT access token of the user passed in the request header.
      * @return ResponseEntity
      * @throws AuthorizationFailedException This exception is thrown if user has not signed in or if he is signed out.
-     * @throws InvalidQuestionException This exception is thrown if the question doesn't exist in the database
+     * @throws InvalidQuestionException     This exception is thrown if the question doesn't exist in the database
      */
     @RequestMapping(method = RequestMethod.DELETE, path = "question/delete/{questionId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<QuestionDeleteResponse> deleteQuestion(@PathVariable("questionId") final String questionUuid, @RequestHeader("authorization") final String authorization) throws AuthorizationFailedException, InvalidQuestionException {
