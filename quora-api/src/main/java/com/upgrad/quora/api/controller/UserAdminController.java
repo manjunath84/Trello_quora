@@ -20,7 +20,7 @@ public class UserAdminController {
     /**
      * This method deletes user in system by admin.
      *
-     * @param userUuid  The UUID of the User to be deleted
+     * @param userUuid      The UUID of the User to be deleted
      * @param authorization The JWT access token of the user passed in the request header.
      * @return ResponseEntity
      * @throws AuthorizationFailedException

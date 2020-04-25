@@ -14,7 +14,7 @@ public class RestExceptionHandler {
     /**
      * This method handles all the SingUpRestrictedException throw by the Rest Controller
      *
-     * @param exc SingUpRestrictedException
+     * @param exc     SingUpRestrictedException
      * @param request Webrequest
      * @return ResponseEntity
      */
@@ -28,7 +28,7 @@ public class RestExceptionHandler {
     /**
      * This method handles all the UserNotFoundException throw by the Rest Controller
      *
-     * @param exc UserNotFoundException
+     * @param exc     UserNotFoundException
      * @param request Webrequest
      * @return ResponseEntity
      */
@@ -41,7 +41,7 @@ public class RestExceptionHandler {
     /**
      * This method handles all the SignOutRestrictedException throw by the Rest Controller
      *
-     * @param exc SignOutRestrictedException
+     * @param exc     SignOutRestrictedException
      * @param request Webrequest
      * @return ResponseEntity
      */
@@ -54,7 +54,7 @@ public class RestExceptionHandler {
     /**
      * This method handles all the AuthenticationFailedException throw by the Rest Controller
      *
-     * @param exc AuthenticationFailedException
+     * @param exc     AuthenticationFailedException
      * @param request Webrequest
      * @return ResponseEntity
      */
