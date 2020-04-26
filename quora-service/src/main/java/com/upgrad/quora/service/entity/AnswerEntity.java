@@ -1,6 +1,5 @@
 package com.upgrad.quora.service.entity;
 
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -13,13 +12,12 @@ import java.io.Serializable;
 import java.time.ZonedDateTime;
 
 @Entity
-@Table(name = "question")
+@Table(name = "answer")
 @NamedQueries({
-        @NamedQuery(name = "getQuestionByUuid", query = "select q from QuestionEntity q where q.uuid = :questionUuid"),
-        @NamedQuery(name = "getAllQuestions", query = "select q from QuestionEntity q"),
-        @NamedQuery(name = "getAllQuestionsByUserUuid", query = "select q from QuestionEntity q where q.user.uuid = :userUuid")
+        @NamedQuery(name = "getAnswerById", query = "select a from AnswerEntity a where a.uuid = :answerUuid"),
+        @NamedQuery(name = "getAllAnswersToQuestion", query = "select a from AnswerEntity a where a.question.uuid = :uuid")
 })
-public class QuestionEntity implements Serializable {
+public class AnswerEntity implements Serializable {
 
     @Id
     @Column(name = "id")
@@ -31,10 +29,10 @@ public class QuestionEntity implements Serializable {
     @Size(max = 200)
     private String uuid;
 
-    @Column(name = "content")
+    @Column(name = "ans")
     @NotNull
-    @Size(max = 500)
-    private String content;
+    @Size(max = 255)
+    private String answer;
 
     @Column(name = "date")
     @NotNull
@@ -44,6 +42,11 @@ public class QuestionEntity implements Serializable {
     @NotNull
     @JoinColumn(name = "user_id")
     private UserEntity user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @NotNull
+    @JoinColumn(name = "question_id")
+    private QuestionEntity question;
 
     public long getId() {
         return id;
@@ -61,12 +64,12 @@ public class QuestionEntity implements Serializable {
         this.uuid = uuid;
     }
 
-    public String getContent() {
-        return content;
+    public String getAnswer() {
+        return answer;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
     public ZonedDateTime getCreatedDate() {
@@ -83,6 +86,14 @@ public class QuestionEntity implements Serializable {
 
     public void setUser(UserEntity user) {
         this.user = user;
+    }
+
+    public QuestionEntity getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(QuestionEntity question) {
+        this.question = question;
     }
 
     @Override
