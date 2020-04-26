@@ -30,7 +30,7 @@ public class QuestionDao {
      *
      * @return List<QuestionEntity> List of all the questions asked by any user
      */
-    public List<QuestionEntity> getAllQuestions(){
+    public List<QuestionEntity> getAllQuestions() {
         return entityManager.createNamedQuery("getAllQuestions", QuestionEntity.class).getResultList();
     }
 
@@ -40,7 +40,7 @@ public class QuestionDao {
      * @param userUuid The uuid of the user
      * @return List<QuestionEntity> List of all the questions asked by the user
      */
-    public List<QuestionEntity> getAllQuestionsByUserUuid(final String userUuid){
+    public List<QuestionEntity> getAllQuestionsByUserUuid(final String userUuid) {
         return entityManager.createNamedQuery("getAllQuestionsByUserUuid", QuestionEntity.class).setParameter("userUuid", userUuid).getResultList();
     }
 
@@ -63,7 +63,7 @@ public class QuestionDao {
      *
      * @param questionEntity The Question Entity object to be updated to the database
      */
-    public void editQuestion(final QuestionEntity questionEntity){
+    public void editQuestion(final QuestionEntity questionEntity) {
         entityManager.merge(questionEntity);
     }
 
@@ -77,4 +77,12 @@ public class QuestionDao {
         return entityManager.createQuery("delete from QuestionEntity q where q.uuid = :questionUuid").setParameter("questionUuid", questionUuid).executeUpdate();
     }
 
+    /**
+     * This method is used to delete the given Question Entity
+     *
+     * @param questionEntity The Question entity to be deleted.
+     */
+    public void deleteQuestion(final QuestionEntity questionEntity) {
+        entityManager.remove(questionEntity);
+    }
 }

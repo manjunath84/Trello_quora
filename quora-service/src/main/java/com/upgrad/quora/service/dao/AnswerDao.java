@@ -51,13 +51,13 @@ public class AnswerDao {
     }
 
     /**
-     * This method deletes the answer entity from the database based on answer Uuid
+     * This method is used to delete the given Answer Entity
      *
-     * @param answerUuid The answerUuid provided by user
-     * @return Integer The number of deleted answer Entities
+     * @param answerEntity The Answer Entity to be deleted
      */
-    public Integer deleteAnswerByUuid(final String answerUuid) {
-        return entityManager.createQuery("delete from AnswerEntity a where a.uuid = :answerUuid").setParameter("answerUuid", answerUuid).executeUpdate();
+    public void deleteAnswer(final AnswerEntity answerEntity) {
+
+        entityManager.remove(answerEntity);
     }
 
     /**
