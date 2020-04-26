@@ -1,4 +1,4 @@
-/*package com.upgrad.quora.api.controller;
+package com.upgrad.quora.api.controller;
 
 
 import org.junit.Test;
@@ -17,7 +17,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-
 public class QuestionControllerTest {
 
     @Autowired
@@ -152,6 +151,4 @@ public class QuestionControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("code").value("USR-001"));
     }
 
-
 }
-*/
