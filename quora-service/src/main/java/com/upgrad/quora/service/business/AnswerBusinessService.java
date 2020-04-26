@@ -91,12 +91,11 @@ public class AnswerBusinessService {
      *
      * @param answerUuid    The answerUuid entered by the user
      * @param authorization The JWT access token of the user
-     * @return Count The count of answer entity deleted.
      * @throws AuthorizationFailedException This exception is thrown, if the user is not signed in or it has signed out
      * @throws AnswerNotFoundException      This exception is thrown if the answer is not found in database for the entered answerUuid
      */
     @Transactional(propagation = Propagation.REQUIRED)
-    public Integer deleteAnswer(final String answerUuid, final String authorization) throws AuthorizationFailedException, AnswerNotFoundException {
+    public void deleteAnswer(final String answerUuid, final String authorization) throws AuthorizationFailedException, AnswerNotFoundException {
         //Get the user entity from the given authToken.
         final String signoutExceptionMessage = "User is signed out.Sign in first to delete an answer";
         UserEntity user = commonBusinessService.getAuthenticatedUser(authorization, signoutExceptionMessage);
@@ -109,9 +108,10 @@ public class AnswerBusinessService {
         UserEntity answerOwner = answerEntity.getUser();
 
         if (answerOwner.getUuid().equals(user.getUuid()) || user.getRole().equals("admin")) {
-            return answerDao.deleteAnswerByUuid(answerUuid);
+            answerDao.deleteAnswer(answerEntity);
+        } else {
+            throw new AuthorizationFailedException("ATHR-003", "Only the question owner or admin can delete the question");
         }
-        throw new AuthorizationFailedException("ATHR-003", "Only the question owner or admin can delete the question");
     }
 
     /**

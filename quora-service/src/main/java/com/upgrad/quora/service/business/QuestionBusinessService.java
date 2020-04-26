@@ -122,12 +122,11 @@ public class QuestionBusinessService {
      *
      * @param questionUuid The questionUuid entered by the user
      * @param authToken    The JWT access token of the user
-     * @return QuestionEntity The persited question entity.
-     * @throws AuthorizationFailedException
-     * @throws InvalidQuestionException
+     * @throws AuthorizationFailedException This exception is thrown if user has not signed in or if he is signed out.
+     * @throws InvalidQuestionException     This exception is thrown if given question uuid does not exist
      */
     @Transactional(propagation = Propagation.REQUIRED)
-    public Integer deleteQuestion(final String questionUuid, final String authToken) throws AuthorizationFailedException, InvalidQuestionException {
+    public void deleteQuestion(final String questionUuid, final String authToken) throws AuthorizationFailedException, InvalidQuestionException {
 
         //Get the user entity from the given authToken.
         final String signoutExceptionMessage = "User is signed out.Sign in first to delete a question";
@@ -142,8 +141,9 @@ public class QuestionBusinessService {
 
         //delete the question if either the user is the owner of the question or admin else throw Authorizarion exception
         if (questionOwner.getUuid().equals(userEntity.getUuid()) || userEntity.getRole().equals("admin")) {
-            return questionDao.deleteQuestionByUuid(questionUuid);
+            questionDao.deleteQuestion(question);
+        } else {
+            throw new AuthorizationFailedException("ATHR-003", "Only the question owner or admin can delete the question");
         }
-        throw new AuthorizationFailedException("ATHR-003", "Only the question owner or admin can delete the question");
     }
 }

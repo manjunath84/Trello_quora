@@ -23,12 +23,11 @@ public class UserAdminBusinessService {
      *
      * @param userUuid  The UUID of the User to be deleted
      * @param authToken The JWT access token of the user passed in the request header.
-     * @return Integer count of users deleted by the uuid.
-     * @throws AuthorizationFailedException
-     * @throws UserNotFoundException
+     * @throws AuthorizationFailedException This exception is thrown if user has not signed in or if he is signed out.
+     * @throws UserNotFoundException        This exception is thrown if given question uuid does not exist
      */
     @Transactional(propagation = Propagation.REQUIRED)
-    public Integer deleteUser(final String userUuid, final String authToken) throws AuthorizationFailedException, UserNotFoundException {
+    public void deleteUser(final String userUuid, final String authToken) throws AuthorizationFailedException, UserNotFoundException {
         final String signoutExceptionMessage = "User is signed out";
         UserEntity userEntity = commonBusinessService.getAuthenticatedUser(authToken, signoutExceptionMessage);
         String userRole = userEntity.getRole();
@@ -43,7 +42,7 @@ public class UserAdminBusinessService {
             throw new UserNotFoundException("USR-001", "User with entered uuid to be deleted does not exist");
         }
 
-        return userDao.deleteUserByUuid(userUuid);
+        userDao.deleteUser(user);
 
     }
 }

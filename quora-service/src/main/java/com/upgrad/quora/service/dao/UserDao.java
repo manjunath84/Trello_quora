@@ -76,18 +76,12 @@ public class UserDao {
     }
 
     /**
-     * This method deletes UserEntity by the given User Unique Identification.
+     * This method is used to delete the given User Entity
      *
-     * @param userUuid The uuid of the user
-     * @return Integer The Uuid of the given user.
+     * @param user The given User Entity to be deleted
      */
-    public Integer deleteUserByUuid(final String userUuid) {
-        try {
-            //Using createNamedQuery throws exception due to which it is recommended to use this way
-            return entityManager.createQuery("delete from UserEntity u where u.uuid = :userUuid").setParameter("userUuid", userUuid).executeUpdate();
-        } catch (NoResultException e) {
-            return null;
-        }
+    public void deleteUser(final UserEntity user) {
+        entityManager.remove(user);
     }
 
 }
