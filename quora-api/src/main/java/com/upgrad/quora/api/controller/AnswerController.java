@@ -32,7 +32,7 @@ public class AnswerController {
      * @param accessToken   The JWT access token of the user passed in the request header.
      * @return ResponseEntity
      * @throws AuthorizationFailedException This exception is thrown, if the user is not signed in or it has signed out
-     * @throws InvalidQuestionException This exception is thrown when the question doesn't exists for which the answer is being created
+     * @throws InvalidQuestionException     This exception is thrown when the question doesn't exists for which the answer is being created
      */
     @RequestMapping(method = RequestMethod.POST, path = "question/{questionId}/answer/create", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<AnswerResponse> createAnswer(final AnswerRequest answerRequest, @RequestHeader("authorization") String accessToken, @PathVariable("questionId") String questionID)
@@ -51,11 +51,11 @@ public class AnswerController {
      * This method updates answer in the system.
      *
      * @param answerEditRequest The answer entered by the user
-     * @param answerId The answerId for which the answer is to be updated
-     * @param accessToken   The JWT access token of the user passed in the request header.
+     * @param answerId          The answerId for which the answer is to be updated
+     * @param accessToken       The JWT access token of the user passed in the request header.
      * @return ResponseEntity
      * @throws AuthorizationFailedException This exception is thrown, if the user is not signed in or it has signed out
-     * @throws AnswerNotFoundException This exception is thrown if the answer is not found in database for the entered answerUuid
+     * @throws AnswerNotFoundException      This exception is thrown if the answer is not found in database for the entered answerUuid
      */
     @RequestMapping(method = RequestMethod.PUT, path = "/answer/edit/{answerId}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<AnswerEditResponse> editAnswerContent(final AnswerEditRequest answerEditRequest, @RequestHeader("authorization") String accessToken, @PathVariable("answerId") String answerId)
@@ -74,7 +74,7 @@ public class AnswerController {
      * @param accessToken The JWT access token of the user passed in the request header.
      * @return ResponseEntity
      * @throws AuthorizationFailedException This exception is thrown, if the user is not signed in or it has signed out
-     * @throws AnswerNotFoundException This exception is thrown if the answer is not found in database for the entered answerUuid
+     * @throws AnswerNotFoundException      This exception is thrown if the answer is not found in database for the entered answerUuid
      */
     @RequestMapping(method = RequestMethod.DELETE, path = "/answer/delete/{answerId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<AnswerDeleteResponse> deleteAnswer(@PathVariable("answerId") final String answerUuid, @RequestHeader("authorization") final String accessToken) throws AuthorizationFailedException, AnswerNotFoundException {
@@ -90,13 +90,13 @@ public class AnswerController {
      * @param accessToken The JWT access token of the user passed in the request header.
      * @return ResponseEntity
      * @throws AuthorizationFailedException This exception is thrown, if the user is not signed in or it has signed out
-     * @throws InvalidQuestionException This exception is thrown if the question is not found in database for the entered questionId
+     * @throws InvalidQuestionException     This exception is thrown if the question is not found in database for the entered questionId
      */
-    @RequestMapping(method = RequestMethod.GET, path="answer/all/{questionId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(method = RequestMethod.GET, path = "answer/all/{questionId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<AnswerDetailsResponse>> getAllAnswersToQuestion(@PathVariable("questionId") String questionId, @RequestHeader("authorization") final String accessToken) throws AuthorizationFailedException, InvalidQuestionException {
-        List<AnswerEntity> answerResponses= answerBusinessService.getAllAnswersToQuestion(questionId, accessToken);
+        List<AnswerEntity> answerResponses = answerBusinessService.getAllAnswersToQuestion(questionId, accessToken);
         List<AnswerDetailsResponse> answerDetailsResponses = new ArrayList<>();
-        for(AnswerEntity answerEntity: answerResponses) {
+        for (AnswerEntity answerEntity : answerResponses) {
             AnswerDetailsResponse answerDetailsResponse = new AnswerDetailsResponse();
             answerDetailsResponse.setId(answerEntity.getUuid());
             answerDetailsResponse.setQuestionContent(answerEntity.getQuestion().getContent());
