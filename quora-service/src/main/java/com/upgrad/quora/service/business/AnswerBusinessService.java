@@ -50,7 +50,7 @@ public class AnswerBusinessService {
                 (userAuthTokenEntity.getLogoutAt() != null)) {
             throw new AuthorizationFailedException("ATHR-002", "User is signed out.Sign in first to post a question");
         }
-        QuestionEntity question = questionDao.getQuestionById(questionID);
+        QuestionEntity question = questionDao.getQuestionByUuid(questionID);
         if (question == null) {
             throw new InvalidQuestionException("QUES-001", "The question entered is invalid");
         }
@@ -147,7 +147,7 @@ public class AnswerBusinessService {
             throw new AuthorizationFailedException("ATHR-002", "User is signed out.Sign in first to post a question");
         }
 
-        QuestionEntity questionEntity = questionDao.getQuestionById(questionId);
+        QuestionEntity questionEntity = questionDao.getQuestionByUuid(questionId);
         if (questionEntity == null) {
             throw new InvalidQuestionException(
                     "QUES-001", "The question with entered uuid whose details are to be seen does not exist");
